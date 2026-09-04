@@ -13,7 +13,6 @@
     "db:migrate": "pnpm --filter @quote-me/backend prisma:migrate",
     "db:deploy": "pnpm --filter @quote-me/backend exec prisma migrate deploy",
     "db:seed": "pnpm --filter @quote-me/backend prisma:seed",
-    "typecheck": "pnpm -r run typecheck",
-    "postinstall": "pnpm --filter @quote-me/backend exec prisma generate"
+    "typecheck": "pnpm -r run typecheck"
   }
 }
