@@ -1,3 +1,6 @@
+[variables]
+NIXPACKS_NODE_VERSION = "20"
+
 [phases.install]
 cmds = ["pnpm install --frozen-lockfile --prod=false"]
 
