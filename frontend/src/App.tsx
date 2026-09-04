@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Shell } from "./components/Shell";
 import { useAuth } from "./hooks/useAuth";
@@ -15,8 +15,25 @@ function PageFallback() {
   return <p className="muted">Loading…</p>;
 }
 
+function prefetchHotRoutes() {
+  void import("./pages/QuotationsPage");
+  void import("./pages/BuilderPage");
+  void import("./pages/ClientsPage");
+}
+
 export default function App() {
   const { user, setUser } = useAuth();
+  useEffect(() => {
+    if (!user) return;
+    const ric = window.requestIdleCallback;
+    if (typeof ric === "function") {
+      const id = ric(prefetchHotRoutes, { timeout: 1500 });
+      return () => window.cancelIdleCallback?.(id);
+    }
+    const t = window.setTimeout(prefetchHotRoutes, 400);
+    return () => window.clearTimeout(t);
+  }, [user]);
+
   if (!user) {
     return <LoginPage onLogin={(u, token) => setUser(u, token)} />;
   }

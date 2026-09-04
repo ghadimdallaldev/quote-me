@@ -20,6 +20,7 @@ export default function QuotationsPage() {
         </Link>
       </div>
       <div className="panel">
+        <div className="table-wrap">
         <table>
           <thead>
             <tr>
@@ -39,7 +40,7 @@ export default function QuotationsPage() {
                   <span className="badge">{String(q.status)}</span>
                 </td>
                 <td>{money(Number(q.grandTotalCents))}</td>
-                <td className="row">
+                <td className="actions-bar">
                   <Link to={`/quotations/${q.id}`}>
                     <button className="ghost">Open</button>
                   </Link>
@@ -79,6 +80,7 @@ export default function QuotationsPage() {
             ))}
           </tbody>
         </table>
+        </div>
       </div>
     </div>
   );

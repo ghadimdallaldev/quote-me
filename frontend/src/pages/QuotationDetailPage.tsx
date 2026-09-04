@@ -36,9 +36,8 @@ export default function QuotationDetailPage() {
 
   return (
     <div className="stack">
-      <div className="row" style={{ justifyContent: "space-between" }}>
-        <h2 style={{ margin: 0 }}>{String(q.quotationNumber)}</h2>
-        <div className="row">
+      <h2 style={{ margin: 0 }}>{String(q.quotationNumber)}</h2>
+      <div className="actions-bar">
           {!cancelled && (
             <Link to={`/quotations/${id}/edit`}>
               <button className="secondary" disabled={busy}>
@@ -109,7 +108,6 @@ export default function QuotationDetailPage() {
               Reopen as draft
             </button>
           )}
-        </div>
       </div>
       {cancelled && (
         <div className="panel" style={{ borderColor: "var(--danger)", background: "#fdf2f0" }}>
@@ -123,6 +121,7 @@ export default function QuotationDetailPage() {
           <span className={`badge${cancelled ? " badge-cancelled" : ""}`}>{status}</span>
         </p>
         <p className="muted">{String(q.eventLocation ?? "")}</p>
+        <div className="table-wrap">
         <table>
           <thead>
             <tr>
@@ -152,6 +151,7 @@ export default function QuotationDetailPage() {
             ))}
           </tbody>
         </table>
+        </div>
         <p>
           <strong>Total: {money(Number(q.grandTotalCents))}</strong>
         </p>

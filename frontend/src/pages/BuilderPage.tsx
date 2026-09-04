@@ -47,11 +47,12 @@ function MenuAddRow({
         </label>
         <input
           type="number"
+          inputMode="decimal"
           min={0.5}
           step="any"
           value={qty}
           onChange={(e) => setQty(e.target.value)}
-          style={{ maxWidth: 72 }}
+          className="qty-input"
         />
         <button
           className="ghost"
@@ -95,6 +96,7 @@ export default function BuilderPage() {
   const [calc, setCalc] = useState<Record<string, unknown> | null>(null);
   const [saving, setSaving] = useState(false);
   const [guestGroupSelected, setGuestGroupSelected] = useState<string[]>([]);
+  const [mobileTab, setMobileTab] = useState<"menu" | "order" | "summary">("menu");
 
   useEffect(() => {
     api.menu().then((m) => setCatalogs(m as Catalog[])).catch(console.error);
@@ -375,16 +377,24 @@ export default function BuilderPage() {
   }
 
   const calcLines = (calc?.lines as Array<Record<string, unknown>>) ?? [];
+  const canSave = !saving && !!customerName && lines.length > 0;
 
   return (
     <div className="stack">
-      <div className="row" style={{ justifyContent: "space-between" }}>
-        <h2 style={{ margin: 0 }}>{id ? "Edit Quotation" : "New Quotation"}</h2>
-        <button onClick={save} disabled={saving || !customerName || lines.length === 0}>
-          {saving ? "Saving…" : "Save quotation"}
+      <div className="sticky-save">
+        <div>
+          <strong>{id ? "Edit quote" : "New quote"}</strong>
+          <div className="muted" style={{ fontSize: 12 }}>
+            {lines.length} item{lines.length === 1 ? "" : "s"} ·{" "}
+            {money(Number(calc?.grandTotalCents ?? 0))}
+          </div>
+        </div>
+        <button onClick={save} disabled={!canSave}>
+          {saving ? "Saving…" : "Save"}
         </button>
       </div>
-      <div className="panel row">
+
+      <div className="panel form-grid">
         <select
           value={clientId}
           onChange={(e) => {
@@ -396,7 +406,6 @@ export default function BuilderPage() {
               setPhone(c.phone ?? "");
             }
           }}
-          style={{ maxWidth: 280 }}
         >
           <option value="">Existing client…</option>
           {existingClients.map((c) => (
@@ -415,16 +424,20 @@ export default function BuilderPage() {
             setCustomerName(e.target.value);
             setClientId("");
           }}
+          autoComplete="name"
         />
         <input
           placeholder="Phone"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
+          inputMode="tel"
+          autoComplete="tel"
         />
         <input
           placeholder="Address / venue details"
           value={eventLocation}
           onChange={(e) => setEventLocation(e.target.value)}
+          autoComplete="street-address"
         />
         <select
           value={deliveryLocationId}
@@ -434,7 +447,6 @@ export default function BuilderPage() {
             const loc = deliveryLocations.find((l) => l.id === nextId);
             setDelivery(loc ? loc.deliveryFeeCents / 100 : 0);
           }}
-          style={{ maxWidth: 260 }}
         >
           <option value="">Delivery zone…</option>
           {deliveryLocations.map((loc) => (
@@ -446,14 +458,40 @@ export default function BuilderPage() {
         <input type="date" value={eventDate} onChange={(e) => setEventDate(e.target.value)} />
         <input
           type="number"
+          inputMode="numeric"
           min={0}
           placeholder="Guests"
           value={guestCount || ""}
           onChange={(e) => setGuestCount(Number(e.target.value) || 0)}
         />
       </div>
+
+      <div className="builder-tabs" role="tablist" aria-label="Builder sections">
+        <button
+          type="button"
+          className={`builder-tab${mobileTab === "menu" ? " active" : ""}`}
+          onClick={() => setMobileTab("menu")}
+        >
+          Menu
+        </button>
+        <button
+          type="button"
+          className={`builder-tab${mobileTab === "order" ? " active" : ""}`}
+          onClick={() => setMobileTab("order")}
+        >
+          Order ({lines.length})
+        </button>
+        <button
+          type="button"
+          className={`builder-tab${mobileTab === "summary" ? " active" : ""}`}
+          onClick={() => setMobileTab("summary")}
+        >
+          Total
+        </button>
+      </div>
+
       <div className="builder">
-        <section className="panel stack">
+        <section className={`panel stack builder-pane${mobileTab === "menu" ? " active" : ""}`}>
           <h3 style={{ margin: 0 }}>Fixed menu</h3>
           <select value={catalogCode} onChange={(e) => setCatalogCode(e.target.value)}>
             {catalogs.map((c) => (
@@ -466,6 +504,7 @@ export default function BuilderPage() {
             placeholder="Search menu"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
+            enterKeyHint="search"
           />
           {filteredPackages.map((pkg) => (
             <MenuAddRow
@@ -475,7 +514,10 @@ export default function BuilderPage() {
               priceLabel={money(pkg.unitPriceCents)}
               unitLabel={pkg.unit === "PERSON" ? "Person" : "Box"}
               defaultQty={1}
-              onAdd={(qty) => addPackage(pkg, qty)}
+              onAdd={(qty) => {
+                addPackage(pkg, qty);
+                setMobileTab("order");
+              }}
               addLabel="Add package"
             />
           ))}
@@ -493,7 +535,10 @@ export default function BuilderPage() {
                     priceLabel=""
                     unitLabel={v.unit}
                     defaultQty={v.minimumQuantity && v.minimumQuantity > 0 ? v.minimumQuantity : 1}
-                    onAdd={(qty) => addVariant(item, v, qty)}
+                    onAdd={(qty) => {
+                      addVariant(item, v, qty);
+                      setMobileTab("order");
+                    }}
                     addLabel="Add"
                     extraActions={
                       guestCount > 0 && item.categoryName.toLowerCase().includes("finger") ? (
@@ -512,7 +557,8 @@ export default function BuilderPage() {
             </div>
           ))}
         </section>
-        <section className="panel stack">
+
+        <section className={`panel stack builder-pane${mobileTab === "order" ? " active" : ""}`}>
           <h3 style={{ margin: 0 }}>Selected order</h3>
           {calcLines.length === 0 && <p className="muted">Select items from the fixed menu.</p>}
           {calcLines.map((line) => {
@@ -539,11 +585,16 @@ export default function BuilderPage() {
                       </label>
                       <input
                         type="number"
-                        min={source.minimumQuantity && source.minimumQuantity > 0 ? source.minimumQuantity : 0.5}
+                        inputMode="decimal"
+                        className="qty-input"
+                        min={
+                          source.minimumQuantity && source.minimumQuantity > 0
+                            ? source.minimumQuantity
+                            : 0.5
+                        }
                         step="any"
                         value={source.quantity ?? Number(line.quantity) ?? 1}
                         onChange={(e) => setLineQuantity(key, Number(e.target.value))}
-                        style={{ maxWidth: 88 }}
                       />
                     </>
                   ) : (
@@ -558,11 +609,13 @@ export default function BuilderPage() {
             );
           })}
         </section>
-        <section className="panel stack">
+
+        <section className={`panel stack builder-pane${mobileTab === "summary" ? " active" : ""}`}>
           <h3 style={{ margin: 0 }}>Summary</h3>
           <label className="muted">Delivery ($)</label>
           <input
             type="number"
+            inputMode="decimal"
             min={0}
             step="0.01"
             value={delivery}
