@@ -1,0 +1,48 @@
+{
+  "code": "BIRTHDAY_BOX",
+  "name": "Birthday Box Menu",
+  "currency": "USD",
+  "source": "BIRTHDAY BOX MENU copy.pdf",
+  "packages": [
+    {
+      "name": "Birthday Box",
+      "unitPriceCents": 2500,
+      "unit": "PERSON",
+      "notes": "Choose one salad + one sandwich. Includes fresh orange juice, one cupcake, one fruit jar.",
+      "selectionGroups": [
+        {
+          "name": "Salads",
+          "chooseCount": 1,
+          "options": [
+            "Chef Salad",
+            "Thai Salad",
+            "Mexican Salad",
+            "Lady Halloumi",
+            "Chicken Caesar",
+            "Tuna Pasta",
+            "Goat Cheese",
+            "Greek Salad"
+          ]
+        },
+        {
+          "name": "Sandwiches",
+          "chooseCount": 1,
+          "options": [
+            "Pesto Halloumi",
+            "Chicken Avocado",
+            "Honey Mustard Chicken",
+            "Turkey & Cheese",
+            "Roast Beef",
+            "Goat Cheese",
+            "Spicy Bird Chicken"
+          ]
+        }
+      ],
+      "included": [
+        { "name": "Fresh orange juice", "quantity": 1 },
+        { "name": "Cupcake", "quantity": 1 },
+        { "name": "Fruit jar", "quantity": 1 }
+      ]
+    }
+  ]
+}

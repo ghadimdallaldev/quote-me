@@ -1,0 +1,296 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  OPS_MANAGER
+}
+
+enum MenuUnit {
+  BOX
+  DOZEN
+  PORTION
+  PIECE
+  KG
+  CAKE
+  SHOT
+  JAR
+  PERSON
+}
+
+enum CalcMethod {
+  PER_GUEST_PER_VARIETY
+  DISTRIBUTED_ACROSS_VARIETIES
+  FIXED_UNIT
+  PACKAGE
+}
+
+enum QuantityRuleScope {
+  CATEGORY
+  ITEM
+  VARIANT
+  PACKAGE
+}
+
+enum QuotationStatus {
+  DRAFT
+  SENT
+  PENDING
+  APPROVED
+  REJECTED
+  EXPIRED
+  CONFIRMED
+  CANCELLED
+}
+
+enum LineMode {
+  PACKAGE
+  A_LA_CARTE
+  GUEST_BASED
+}
+
+enum ChargeType {
+  FIXED
+  PERCENT
+  DELIVERY
+  SETUP
+  SERVICE
+  TAX
+  CUSTOM
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  role         Role     @default(OPS_MANAGER)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  quotations   Quotation[]
+}
+
+model Client {
+  id          String   @id @default(cuid())
+  name        String
+  company     String?
+  phone       String?
+  email       String?
+  address     String?
+  notes       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  quotations  Quotation[]
+}
+
+model MenuCatalog {
+  id           String         @id @default(cuid())
+  code         String         @unique
+  name         String
+  displayOrder Int            @default(0)
+  categories   MenuCategory[]
+  packages     MenuPackage[]
+}
+
+model MenuCategory {
+  id                String             @id @default(cuid())
+  catalogId         String
+  catalog           MenuCatalog        @relation(fields: [catalogId], references: [id], onDelete: Cascade)
+  name              String
+  slug              String
+  displayOrder      Int                @default(0)
+  notes             String?
+  defaultCalcMethod CalcMethod?
+  subcategories     MenuSubcategory[]
+  items             MenuItem[]
+  packages          MenuPackage[]
+
+  @@unique([catalogId, slug])
+}
+
+model MenuSubcategory {
+  id           String       @id @default(cuid())
+  categoryId   String
+  category     MenuCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  name         String
+  slug         String
+  displayOrder Int          @default(0)
+  items        MenuItem[]
+
+  @@unique([categoryId, slug])
+}
+
+model MenuItem {
+  id             String           @id @default(cuid())
+  categoryId     String
+  category       MenuCategory     @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  subcategoryId  String?
+  subcategory    MenuSubcategory? @relation(fields: [subcategoryId], references: [id], onDelete: SetNull)
+  name           String
+  slug           String
+  description    String?
+  servingInfo    String?
+  displayOrder   Int              @default(0)
+  isActive       Boolean          @default(true)
+  variants       MenuItemVariant[]
+
+  @@unique([categoryId, slug])
+}
+
+model MenuItemVariant {
+  id                 String   @id @default(cuid())
+  menuItemId         String
+  menuItem           MenuItem @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
+  label              String
+  slug               String
+  unit               MenuUnit
+  unitPriceCents     Int
+  minimumQuantity    Int?
+  roundingIncrement  Int?
+  piecesPerUnit      Int?
+  displayOrder       Int      @default(0)
+  notes              String?
+
+  @@unique([menuItemId, slug])
+}
+
+model MenuPackage {
+  id             String                  @id @default(cuid())
+  catalogId      String
+  catalog        MenuCatalog             @relation(fields: [catalogId], references: [id], onDelete: Cascade)
+  categoryId     String?
+  category       MenuCategory?           @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  name           String
+  slug           String
+  unitPriceCents Int
+  unit           MenuUnit                @default(BOX)
+  totalPieces    Int?
+  displayOrder   Int                     @default(0)
+  notes          String?
+  components     MenuPackageComponent[]
+
+  @@unique([catalogId, slug])
+}
+
+model MenuPackageComponent {
+  id             String      @id @default(cuid())
+  packageId      String
+  package        MenuPackage @relation(fields: [packageId], references: [id], onDelete: Cascade)
+  name           String
+  quantity       Int?
+  unit           String?
+  groupName      String?
+  sortOrder      Int         @default(0)
+  isCustomizable Boolean     @default(false)
+}
+
+model QuantityRule {
+  id                   String            @id @default(cuid())
+  scope                QuantityRuleScope
+  scopeId              String
+  method               CalcMethod
+  quantityPerGuest     Float?
+  totalPiecesPerGuest  Float?
+  roundingIncrement    Int?
+  minimumQuantity      Int?
+  notes                String?
+
+  @@index([scope, scopeId])
+}
+
+model DeliveryLocation {
+  id               String      @id @default(cuid())
+  name             String      @unique
+  deliveryFeeCents Int
+  notes            String?
+  isActive         Boolean     @default(true)
+  displayOrder     Int         @default(0)
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+  quotations       Quotation[]
+}
+
+model Quotation {
+  id                 String             @id @default(cuid())
+  quotationNumber    String             @unique
+  clientId           String?
+  client             Client?            @relation(fields: [clientId], references: [id], onDelete: SetNull)
+  createdById        String
+  createdBy          User               @relation(fields: [createdById], references: [id])
+  customerName       String
+  company            String?
+  phone              String?
+  email              String?
+  eventDate          DateTime?
+  eventTime          String?
+  eventLocation      String?
+  deliveryLocationId String?
+  deliveryLocation   DeliveryLocation?  @relation(fields: [deliveryLocationId], references: [id], onDelete: SetNull)
+  guestCount         Int?
+  waiterCount        Int?
+  eventType          String?
+  notes              String?
+  status             QuotationStatus    @default(DRAFT)
+  subtotalCents      Int                @default(0)
+  discountCents      Int                @default(0)
+  chargesCents       Int                @default(0)
+  taxCents           Int                @default(0)
+  grandTotalCents    Int                @default(0)
+  validUntil         DateTime?
+  terms              String?
+  paymentTerms       String?
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+  items              QuotationItem[]
+  charges            QuotationCharge[]
+}
+
+model QuotationItem {
+  id                 String                    @id @default(cuid())
+  quotationId        String
+  quotation          Quotation                 @relation(fields: [quotationId], references: [id], onDelete: Cascade)
+  lineNumber         Int
+  lineMode           LineMode
+  menuItemId         String?
+  menuVariantId      String?
+  menuPackageId      String?
+  unitSnapshot       String
+  orderNameSnapshot  String
+  categorySnapshot   String?
+  quantity           Float
+  unitPriceCents     Int
+  lineTotalCents     Int
+  noteSnapshot       String?
+  wasAutoCalculated  Boolean                   @default(false)
+  calcExplanation    String?
+  sortOrder          Int                       @default(0)
+  components         QuotationItemComponent[]
+}
+
+model QuotationItemComponent {
+  id               String        @id @default(cuid())
+  quotationItemId  String
+  quotationItem    QuotationItem @relation(fields: [quotationItemId], references: [id], onDelete: Cascade)
+  name             String
+  quantity         Int?
+  unit             String?
+  groupName        String?
+  sortOrder        Int           @default(0)
+}
+
+model QuotationCharge {
+  id            String     @id @default(cuid())
+  quotationId   String
+  quotation     Quotation  @relation(fields: [quotationId], references: [id], onDelete: Cascade)
+  name          String
+  type          ChargeType
+  value         Float
+  amountCents   Int
+  sortOrder     Int        @default(0)
+}

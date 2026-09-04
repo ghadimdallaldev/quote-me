@@ -1,0 +1,85 @@
+{
+  "company": {
+    "legalName": "Darine's Catering",
+    "orderDocumentTitle": "Catering Order",
+    "tradingNames": ["Darine's Catering", "Cooking Dairy"],
+    "address": "Beirut, Badaro, next to Sweet Industry & AUCE",
+    "instagram": "@DarinesCatering",
+    "phones": ["03 58 25 93"],
+    "currency": "USD",
+    "currencySymbol": "$"
+  },
+  "sampleQuotation": {
+    "source": "Catering Order Aya 16 august.pdf",
+    "customerName": "Aya",
+    "phone": "70/984615",
+    "address": "Pickup at 3:00pm",
+    "date": "16/8",
+    "lines": [
+      {
+        "quantity": 1,
+        "unit": "Box",
+        "order": "Lebanese box",
+        "unitPrice": 35,
+        "note": ["Kibbeh (24 pcs)", "Sambousek lahme (12 pcs)", "Sambousek jebneh (12 pcs)", "Fatayer spinach (12 pcs)"],
+        "priceNote": "Sample used $35; Soiree menu seed lists $32 — quotation snapshot must preserve ordered price"
+      },
+      {
+        "quantity": 1,
+        "unit": "Box",
+        "order": "Traditional breakfast box",
+        "unitPrice": 17,
+        "note": ["Keshek", "Mohammara", "Mix Cheese", "Zaatar with pomegranate"]
+      },
+      {
+        "quantity": 1,
+        "unit": "Box",
+        "order": "Pizza box",
+        "unitPrice": 23,
+        "note": ["Hawaiian", "Pepperoni", "Chicken bbq", "Margarita"]
+      },
+      {
+        "quantity": 1,
+        "unit": "Box",
+        "order": "Croissant Box",
+        "unitPrice": 30,
+        "note": ["Almond", "Chocolate", "Cheese", "Zaatar"]
+      },
+      {
+        "quantity": 1,
+        "unit": "Box",
+        "order": "Fingerfood lunch soiree",
+        "unitPrice": 34,
+        "note": ["Roast beef", "Chicken honey mustard", "Tuna mix", "Crab mix", "Beef burger"]
+      },
+      {
+        "quantity": 1,
+        "unit": "Box",
+        "order": "Fingerfood with salty tarts box",
+        "unitPrice": 59,
+        "note": {
+          "Salty tarts": ["Pesto halloumi", "Fetta with pomegranate", "Mushroom"],
+          "Fingerfood": ["Turkey and cheese", "Chicken honey mustard", "Roast beef"]
+        }
+      },
+      {
+        "quantity": 5,
+        "unit": "Dozen",
+        "order": "Sweets",
+        "unitPrice": 148,
+        "note": ["Decorated Choux (2 dozen)", "Decorated brownie (2 dozen)", "Cheesecake shots (1 dozen)"],
+        "pricingNote": "Line shows aggregate price 148 for 5 dozen combined varieties"
+      }
+    ],
+    "subtotal": 346,
+    "deliveryCharge": 0,
+    "total": 346
+  },
+  "catalogs": [
+    "catalog-catering.json",
+    "catalog-cocktail.json",
+    "catalog-soiree-box.json",
+    "catalog-birthday-box.json",
+    "catalog-kids.json"
+  ]
+}

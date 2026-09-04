@@ -1,0 +1,89 @@
+{
+  "code": "KIDS",
+  "name": "Kids / Birthday Menu 2025",
+  "currency": "USD",
+  "source": "Darine's - Kids Menu 2025 final.pdf",
+  "notes": "Image-only PDF; extracted via page renders. Additional Tiny Treats / party add-ons may exist on unread pages — verify against full PDF during seed QA.",
+  "packages": [
+    {
+      "name": "Option 1 (the kid’s lunch box)",
+      "unitPriceCents": 750,
+      "unit": "PERSON",
+      "components": [
+        { "name": "Medium beef burgers", "quantity": 2 },
+        { "name": "Nuggets with crispy chips", "quantity": 3 },
+        { "name": "Jello", "quantity": 1 },
+        { "name": "Fresh orange juice", "quantity": 1 }
+      ]
+    },
+    {
+      "name": "Option 2 (the kid’s lunch box)",
+      "unitPriceCents": 950,
+      "unit": "PERSON",
+      "components": [
+        { "name": "Regular chicken / beet burger", "quantity": 1 },
+        { "name": "Nuggets with crispy chips", "quantity": 3 },
+        { "name": "Pizza", "quantity": 2 },
+        { "name": "Jello or custard", "quantity": 1 },
+        { "name": "Fresh orange juice / lemonade", "quantity": 1 }
+      ]
+    },
+    {
+      "name": "Option 3 (the breakfast box)",
+      "unitPriceCents": 850,
+      "unit": "PERSON",
+      "components": [
+        { "name": "Mini croissants (zaatar and chocolate)", "quantity": 2 },
+        { "name": "Pain au lait turkey & cheese", "quantity": 1 },
+        { "name": "Custard", "quantity": 1 },
+        { "name": "Pizza", "quantity": 3 },
+        { "name": "Fresh orange juice", "quantity": 1 }
+      ]
+    },
+    {
+      "name": "Parents Menu",
+      "unitPriceCents": 12900,
+      "unit": "BOX",
+      "notes": "Serving 10 to 16 parents | 120pcs total | 3 boxes | 8 to 12 pcs per person",
+      "totalPieces": 120,
+      "components": [
+        {
+          "name": "Fingerfood with Salty Tarts Box",
+          "quantity": 44,
+          "unit": "PIECE",
+          "children": [
+            { "name": "Roast Beef", "group": "Fingerfood" },
+            { "name": "Turkey and Cheese", "group": "Fingerfood" },
+            { "name": "Goat cheese", "group": "Fingerfood" },
+            { "name": "Chicken honey mustard", "group": "Fingerfood" },
+            { "name": "Pesto & Halloumi", "group": "Salty Tarts" },
+            { "name": "Mushroom", "group": "Salty Tarts" },
+            { "name": "Fetta", "group": "Salty Tarts" }
+          ]
+        },
+        {
+          "name": "Lebanese Box",
+          "quantity": 60,
+          "unit": "PIECE",
+          "children": [
+            { "name": "Kebbeh soiree", "quantity": 24 },
+            { "name": "Fatayer Spinach", "quantity": 12 },
+            { "name": "Sambousek Lahmeh", "quantity": 12 },
+            { "name": "Sambousek Jebneh", "quantity": 12 }
+          ]
+        },
+        {
+          "name": "Salad Shots",
+          "quantity": 16,
+          "unit": "SHOT",
+          "children": [
+            { "name": "Chicken Caesar" },
+            { "name": "Goat Cheese" },
+            { "name": "Chicken Avocado" },
+            { "name": "Thai" }
+          ]
+        }
+      ]
+    }
+  ]
+}

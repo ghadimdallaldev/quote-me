@@ -1,0 +1,288 @@
+{
+  "code": "SOIREE_BOX",
+  "name": "Soiree Box Menu 2025-2026",
+  "currency": "USD",
+  "source": "Soiree box menu 2025-2026.pdf",
+  "packages": [
+    {
+      "name": "Lebanese box",
+      "unitPriceCents": 3200,
+      "unit": "BOX",
+      "totalPieces": 60,
+      "components": [
+        { "name": "Kibbeh soiree", "quantity": 24, "unit": "PIECE" },
+        { "name": "Fatayer spinach", "quantity": 12, "unit": "PIECE" },
+        { "name": "Sambousek lahme", "quantity": 12, "unit": "PIECE" },
+        { "name": "Sambousek jebneh", "quantity": 12, "unit": "PIECE" }
+      ]
+    },
+    {
+      "name": "Kebbeh box",
+      "unitPriceCents": 3500,
+      "unit": "BOX",
+      "totalPieces": 24,
+      "components": [
+        { "name": "Pesto kebbeh", "quantity": 6, "unit": "PIECE" },
+        { "name": "Beetroot kebbeh", "quantity": 6, "unit": "PIECE" },
+        { "name": "Lebanese kebbeh", "quantity": 6, "unit": "PIECE" },
+        { "name": "Pumpkin kebbeh", "quantity": 6, "unit": "PIECE" }
+      ]
+    },
+    {
+      "name": "Breakfast box gourmet",
+      "unitPriceCents": 2000,
+      "unit": "BOX",
+      "totalPieces": 24,
+      "components": [
+        { "name": "Emmental", "quantity": 6, "unit": "PIECE" },
+        { "name": "Goat labneh with pesto", "quantity": 6, "unit": "PIECE" },
+        { "name": "Pesto halloumi", "quantity": 6, "unit": "PIECE" },
+        { "name": "Feta mix", "quantity": 6, "unit": "PIECE" }
+      ]
+    },
+    {
+      "name": "Traditional breakfast box",
+      "unitPriceCents": 1700,
+      "unit": "BOX",
+      "totalPieces": 24,
+      "components": [
+        { "name": "Zaatar with pomegranate", "quantity": 6, "unit": "PIECE" },
+        { "name": "Cheese", "quantity": 6, "unit": "PIECE" },
+        { "name": "Mohammara", "quantity": 6, "unit": "PIECE" },
+        { "name": "Keshek", "quantity": 6, "unit": "PIECE" }
+      ]
+    },
+    {
+      "name": "Pizza box",
+      "unitPriceCents": 2300,
+      "unit": "BOX",
+      "totalPieces": 24,
+      "components": [
+        { "name": "Hawaiian", "quantity": null, "unit": "PIECE", "isCustomizable": true },
+        { "name": "Pepperoni", "quantity": null, "unit": "PIECE", "isCustomizable": true },
+        { "name": "Vegetarian", "quantity": null, "unit": "PIECE", "isCustomizable": true },
+        { "name": "Chicken BBQ", "quantity": null, "unit": "PIECE", "isCustomizable": true }
+      ]
+    },
+    {
+      "name": "Croissant box",
+      "unitPriceCents": 3000,
+      "unit": "BOX",
+      "totalPieces": 16,
+      "components": [
+        { "name": "Chocolate", "quantity": 4, "unit": "PIECE" },
+        { "name": "Cheese", "quantity": 4, "unit": "PIECE" },
+        { "name": "Almond", "quantity": 4, "unit": "PIECE" },
+        { "name": "Zaatar", "quantity": 4, "unit": "PIECE" }
+      ]
+    },
+    {
+      "name": "Lebanese shots",
+      "unitPriceCents": 3400,
+      "unit": "BOX",
+      "totalPieces": 16,
+      "components": [
+        { "name": "Falafel", "quantity": 4, "unit": "SHOT" },
+        { "name": "Warak enab b zeit", "quantity": 4, "unit": "SHOT" },
+        { "name": "Mix pastry", "quantity": 4, "unit": "SHOT" },
+        { "name": "Kebbeh with hommos", "quantity": 4, "unit": "SHOT" }
+      ]
+    },
+    {
+      "name": "Salad Jars box",
+      "unitPriceCents": 3500,
+      "unit": "BOX",
+      "notes": "6 jars + 3 dressing",
+      "totalPieces": 6,
+      "components": [
+        { "name": "Chicken Caesar", "isCustomizable": true },
+        { "name": "Goat Cheese", "isCustomizable": true },
+        { "name": "Mexican", "isCustomizable": true }
+      ]
+    },
+    {
+      "name": "Salad shots box",
+      "unitPriceCents": 2000,
+      "unit": "BOX",
+      "notes": "16 shots + dressing",
+      "totalPieces": 16,
+      "components": [
+        { "name": "Chicken Caesar", "isCustomizable": true },
+        { "name": "Goat Cheese", "isCustomizable": true },
+        { "name": "Mexican", "isCustomizable": true },
+        { "name": "Thai", "isCustomizable": true }
+      ]
+    },
+    {
+      "name": "Savory verrine box",
+      "unitPriceCents": 3600,
+      "unit": "BOX",
+      "totalPieces": 16,
+      "components": [
+        { "name": "Fresh mozzarella", "isCustomizable": true },
+        { "name": "Shrimp with cocktail sauce", "isCustomizable": true },
+        { "name": "Fetta mix with cracker", "isCustomizable": true },
+        { "name": "Beetroot goat cheese", "isCustomizable": true }
+      ]
+    },
+    {
+      "name": "Fingerfood cheese soiree box",
+      "unitPriceCents": 3200,
+      "unit": "BOX",
+      "totalPieces": 36,
+      "components": [
+        { "name": "Goat cheese", "isCustomizable": true },
+        { "name": "Pesto halloumi", "isCustomizable": true },
+        { "name": "Emmental", "isCustomizable": true },
+        { "name": "Feta", "isCustomizable": true }
+      ]
+    },
+    {
+      "name": "Fingerfood lunch soiree box",
+      "unitPriceCents": 3400,
+      "unit": "BOX",
+      "totalPieces": 36,
+      "components": [
+        { "name": "Turkey and cheese", "isCustomizable": true },
+        { "name": "Chicken honey mustard", "isCustomizable": true },
+        { "name": "Beef burger", "isCustomizable": true },
+        { "name": "Crab", "isCustomizable": true },
+        { "name": "Tuna", "isCustomizable": true },
+        { "name": "Roast beef", "isCustomizable": true }
+      ]
+    },
+    {
+      "name": "Salty tart box",
+      "unitPriceCents": 5900,
+      "unit": "BOX",
+      "totalPieces": 51,
+      "components": [
+        { "name": "Goat Cheese", "isCustomizable": true },
+        { "name": "Pesto Halloumi", "isCustomizable": true },
+        { "name": "Fetta with Pomegranate", "isCustomizable": true },
+        { "name": "Salmon with Cream Cheese", "isCustomizable": true },
+        { "name": "Mushroom", "isCustomizable": true },
+        { "name": "Brie with Dried Fruits", "isCustomizable": true }
+      ]
+    },
+    {
+      "name": "Fingerfood with salty tarts box",
+      "unitPriceCents": 5900,
+      "unit": "BOX",
+      "totalPieces": 44,
+      "notes": "Fingerfood 20pcs + Salty tarts 24pcs",
+      "components": [
+        { "name": "Roast Beef", "group": "Fingerfood", "isCustomizable": true },
+        { "name": "Turkey & Cheese", "group": "Fingerfood", "isCustomizable": true },
+        { "name": "Chicken Honey Mustard", "group": "Fingerfood", "isCustomizable": true },
+        { "name": "Pesto & Halloumi", "group": "Salty Tarts", "isCustomizable": true },
+        { "name": "Mushroom", "group": "Salty Tarts", "isCustomizable": true },
+        { "name": "Fetta", "group": "Salty Tarts", "isCustomizable": true }
+      ]
+    },
+    {
+      "name": "Quiche box",
+      "unitPriceCents": 3000,
+      "unit": "BOX",
+      "totalPieces": 16,
+      "components": [
+        { "name": "Chicken mushroom", "isCustomizable": true },
+        { "name": "Spinach mushroom", "isCustomizable": true },
+        { "name": "Tomato basil", "isCustomizable": true }
+      ]
+    },
+    {
+      "name": "Taco box",
+      "unitPriceCents": 3200,
+      "unit": "BOX",
+      "notes": "Make your own taco — 6 hardshell tacos",
+      "components": [
+        { "name": "Minced beef" },
+        { "name": "Guacamole" },
+        { "name": "Sour cream" },
+        { "name": "Tomato mix" },
+        { "name": "Red beans" },
+        { "name": "Lettuce" }
+      ]
+    },
+    {
+      "name": "Granola chia box",
+      "unitPriceCents": 3000,
+      "unit": "BOX",
+      "notes": "6 jars + maple syrup and toppings",
+      "totalPieces": 6,
+      "components": [{ "name": "Granola chia pudding", "quantity": 6, "unit": "JAR" }]
+    },
+    {
+      "name": "Seasonal fruit jars box",
+      "unitPriceCents": 2200,
+      "unit": "BOX",
+      "notes": "6 jars + 3 juice bottles",
+      "totalPieces": 6
+    },
+    {
+      "name": "Exotic fruit jars box",
+      "unitPriceCents": 2800,
+      "unit": "BOX",
+      "notes": "6 jars + 3 juice bottles",
+      "totalPieces": 6
+    },
+    {
+      "name": "Seasonal fruit cups box",
+      "unitPriceCents": 3400,
+      "unit": "BOX",
+      "notes": "16 cups + juice bottles",
+      "totalPieces": 16
+    },
+    {
+      "name": "Exotic fruit cups box",
+      "unitPriceCents": 4500,
+      "unit": "BOX",
+      "notes": "16 cups + juice bottles",
+      "totalPieces": 16
+    },
+    {
+      "name": "Cheesecake verrine box",
+      "unitPriceCents": 3700,
+      "unit": "BOX",
+      "totalPieces": 16,
+      "components": [{ "name": "Mixed toppings" }]
+    },
+    {
+      "name": "Oriental sweet (16 shots)",
+      "unitPriceCents": 3600,
+      "unit": "BOX",
+      "totalPieces": 16,
+      "components": [
+        { "name": "Rez b halv", "isCustomizable": true },
+        { "name": "Meghleh", "isCustomizable": true },
+        { "name": "Mhallabiye", "isCustomizable": true },
+        { "name": "Kashtaliyeh", "isCustomizable": true }
+      ]
+    },
+    {
+      "name": "Oriental kids’ sweets box",
+      "unitPriceCents": 2700,
+      "unit": "BOX",
+      "totalPieces": 16,
+      "components": [
+        { "name": "Jello", "isCustomizable": true },
+        { "name": "Chocolate custard", "isCustomizable": true },
+        { "name": "Regular custard", "isCustomizable": true },
+        { "name": "Pink custard", "isCustomizable": true }
+      ]
+    },
+    {
+      "name": "Oriental sweet (15 verrine + syrup)",
+      "unitPriceCents": 3300,
+      "unit": "BOX",
+      "totalPieces": 15,
+      "components": [
+        { "name": "Daoukieh", "isCustomizable": true },
+        { "name": "Othmalieh", "isCustomizable": true },
+        { "name": "Mafroukeh", "isCustomizable": true },
+        { "name": "Aish el saray", "isCustomizable": true }
+      ]
+    }
+  ]
+}

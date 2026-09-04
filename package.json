@@ -1,0 +1,19 @@
+{
+  "name": "quote-me",
+  "private": true,
+  "packageManager": "pnpm@8.15.9",
+  "scripts": {
+    "dev": "pnpm -r --parallel run dev",
+    "dev:api": "pnpm --filter @quote-me/backend dev",
+    "dev:web": "pnpm --filter @quote-me/frontend dev",
+    "build": "pnpm --filter @quote-me/frontend build && pnpm --filter @quote-me/backend build",
+    "start": "pnpm --filter @quote-me/backend start",
+    "test": "pnpm --filter @quote-me/backend test",
+    "db:up": "docker compose up -d",
+    "db:migrate": "pnpm --filter @quote-me/backend prisma:migrate",
+    "db:deploy": "pnpm --filter @quote-me/backend exec prisma migrate deploy",
+    "db:seed": "pnpm --filter @quote-me/backend prisma:seed",
+    "typecheck": "pnpm -r run typecheck",
+    "postinstall": "pnpm --filter @quote-me/backend exec prisma generate"
+  }
+}

@@ -1,0 +1,161 @@
+{
+  "code": "CATERING",
+  "name": "Catering Menu 2025-2026",
+  "currency": "USD",
+  "source": "Catering menu 2025-2026.pdf",
+  "serviceCharges": [
+    { "name": "Waiter charge", "type": "SERVICE", "unitPriceCents": 5000, "notes": "Starting from $50" },
+    { "name": "Materials per person", "type": "SETUP", "unitPriceCents": 250, "unit": "PERSON", "notes": "Plates, Cutlery, Glasses & Napkins" }
+  ],
+  "categories": [
+    {
+      "name": "Hot starters",
+      "notes": "Serving 10-12 people",
+      "subcategories": [
+        {
+          "name": "Quiche",
+          "notes": "27 cm",
+          "items": [
+            { "name": "Tomato Basil Quiche", "description": "Featuring the bright, fresh flavors of tomatoes and basil", "variants": [{ "label": "27 cm", "unit": "CAKE", "unitPriceCents": 4500 }] },
+            { "name": "Mushroom Quiche", "description": "Rich with the earthy flavors of mushrooms", "variants": [{ "label": "27 cm", "unit": "CAKE", "unitPriceCents": 4500 }] },
+            { "name": "Spinach and feta Quiche", "description": "Inspired by Greek cuisine, with spinach and tangy feta cheese", "variants": [{ "label": "27 cm", "unit": "CAKE", "unitPriceCents": 4500 }] },
+            { "name": "Asparagus and Goat Cheese Quiche", "description": "Celebrating spring with tender asparagus and creamy goat cheese", "variants": [{ "label": "27 cm", "unit": "CAKE", "unitPriceCents": 5500 }] },
+            { "name": "Artichoke delight Quiche", "description": "A delicate and flavored quiche featuring tender artichoke hearts", "variants": [{ "label": "27 cm", "unit": "CAKE", "unitPriceCents": 5500 }] },
+            { "name": "Smoked salmon Quiche", "description": "Featuring the distinctive taste of smoked salmon, inspired by Nordic flavors", "variants": [{ "label": "27 cm", "unit": "CAKE", "unitPriceCents": 6000 }] }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Cold starters",
+      "notes": "Serving 10-12 people",
+      "items": [
+        { "name": "Fresh mozzarella cake", "description": "Served with lemon vinaigrette", "variants": [{ "label": "28 cm", "unit": "CAKE", "unitPriceCents": 12000 }] },
+        { "name": "Refreshing shrimp avocado with quinoa", "description": "Served with lemon vinaigrette", "variants": [{ "label": "28 cm", "unit": "CAKE", "unitPriceCents": 13500 }] },
+        { "name": "Kani crab cake", "description": "Served with lemon mustard", "variants": [{ "label": "28 cm", "unit": "CAKE", "unitPriceCents": 13500 }] },
+        { "name": "Spring quinoa with goat labneh", "description": "Served with balsamic vinaigrette", "variants": [{ "label": "28 cm", "unit": "CAKE", "unitPriceCents": 13500 }] },
+        { "name": "Rainbow sushi cake", "description": "Served with soy sauce", "variants": [{ "label": "28 cm", "unit": "CAKE", "unitPriceCents": 14000 }] },
+        { "name": "Scottish smoked salmon cake with capers", "description": "Served with lemon mustard", "variants": [{ "label": "28 cm", "unit": "CAKE", "unitPriceCents": 14000 }] },
+        { "name": "Marinated salmon avocado cake", "description": "Served with lemon mustard", "variants": [{ "label": "28 cm", "unit": "CAKE", "unitPriceCents": 14000 }] },
+        { "name": "Veggie spring rolls", "description": "Served with sweet chili dip", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1500, "piecesPerUnit": 12 }] },
+        { "name": "Shrimp spring rolls", "description": "Served with sweet chili dip", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2000, "piecesPerUnit": 12 }] }
+      ]
+    },
+    {
+      "name": "Salads",
+      "notes": "Per portion / minimum 6 portions",
+      "defaultMinimumQuantity": 6,
+      "items": [
+        { "name": "Classic Caesar supreme without chicken", "description": "Served with Caesar dressing", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 400, "minimumQuantity": 6 }] },
+        { "name": "Fattoush", "description": "Served with lemon vinaigrette dressing", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 450, "minimumQuantity": 6 }] },
+        { "name": "Tabbouleh", "description": "Served with lemon vinaigrette dressing", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 450, "minimumQuantity": 6 }] },
+        { "name": "Classic Caesar supreme with chicken", "description": "Served with Caesar dressing", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 650, "minimumQuantity": 6 }] },
+        { "name": "Rainbow noodles salad", "description": "Served with sesame and ginger dressing", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 700, "minimumQuantity": 6 }] },
+        { "name": "Feta kale fusion", "description": "Served with lemon vinaigrette dressing", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 700, "minimumQuantity": 6 }] },
+        { "name": "Goat labneh with berries salad", "description": "Served with balsamic vinaigrette dressing", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 800, "minimumQuantity": 6 }] },
+        { "name": "Tropical crab salad", "description": "Served with lemon mustard dressing", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 850, "minimumQuantity": 6 }] },
+        { "name": "Chicken avocado garden", "description": "Served with balsamic vinaigrette dressing", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 900, "minimumQuantity": 6 }] },
+        { "name": "Shrimp tango salad", "description": "Served with lemon mustard dressing", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 900, "minimumQuantity": 6 }] },
+        { "name": "Salmon berry salad", "description": "Served with sesame and ginger dressing", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 1000, "minimumQuantity": 6 }] },
+        { "name": "Bresaola arugula delight", "description": "Served with balsamic vinaigrette dressing", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 1000, "minimumQuantity": 6 }] },
+        { "name": "Sashimi salmon sensation", "description": "Served with sesame and ginger dressing", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 1450, "minimumQuantity": 6 }] }
+      ]
+    },
+    {
+      "name": "Lebanese",
+      "notes": "Per portion / minimum 6 portions (portion items); pastry items per dozen",
+      "items": [
+        { "name": "Hindbeh with olive oil", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 350, "minimumQuantity": 6 }] },
+        { "name": "Hommous", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 350, "minimumQuantity": 6 }] },
+        { "name": "Batata harra", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 350, "minimumQuantity": 6 }] },
+        { "name": "Hommos with beetroot", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 400, "minimumQuantity": 6 }] },
+        { "name": "Hommos with pesto", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 400, "minimumQuantity": 6 }] },
+        { "name": "Eggplant moutabbal", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 450, "minimumQuantity": 6 }] },
+        { "name": "Kibbeh with hommos", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 550, "minimumQuantity": 6 }] },
+        { "name": "Stuffed vine leaves", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 650, "minimumQuantity": 6 }] },
+        { "name": "Fatayer Sbenekh", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 600, "piecesPerUnit": 12 }] },
+        { "name": "Fatayer Baakle", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 600, "piecesPerUnit": 12 }] },
+        { "name": "Fatayer Zaatar", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 600, "piecesPerUnit": 12 }] },
+        { "name": "Pizza margarita", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 700, "piecesPerUnit": 12 }] },
+        { "name": "Sambousek Jebneh", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1000, "piecesPerUnit": 12 }] },
+        { "name": "Sambousek Lahmeh", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1000, "piecesPerUnit": 12 }] },
+        { "name": "Pizza pepperoni", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1200, "piecesPerUnit": 12 }] },
+        { "name": "Hawaiin pizza", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1200, "piecesPerUnit": 12 }] },
+        { "name": "Chicken bbq pizza", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1200, "piecesPerUnit": 12 }] },
+        { "name": "Kebbeh", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1200, "piecesPerUnit": 12 }] },
+        { "name": "Kebbe beetroot", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1400, "piecesPerUnit": 12 }] },
+        { "name": "Kebbe pumpkin", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1400, "piecesPerUnit": 12 }] },
+        { "name": "Kebbe with curry", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1400, "piecesPerUnit": 12 }] },
+        { "name": "Kebbe pesto", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1400, "piecesPerUnit": 12 }] }
+      ]
+    },
+    {
+      "name": "Salty tarts",
+      "notes": "Per dozen",
+      "items": [
+        { "name": "Fetta with Pomegranate", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2500, "piecesPerUnit": 12 }] },
+        { "name": "Pesto & Halloumi", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2500, "piecesPerUnit": 12 }] },
+        { "name": "Mushroom Tart", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2500, "piecesPerUnit": 12 }] },
+        { "name": "Brie with Dried Fruit", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 3000, "piecesPerUnit": 12 }] },
+        { "name": "Smoked Salmon & Cream Cheese", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 3500, "piecesPerUnit": 12 }] },
+        { "name": "Bresaola with Cream Cheese", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 3500, "piecesPerUnit": 12 }] }
+      ]
+    },
+    {
+      "name": "Seafood section",
+      "notes": "Per portion unless noted",
+      "items": [
+        { "name": "Shrimp biryani", "description": "Served with biryani sauce", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 1300 }] },
+        { "name": "Asian shrimp with noodles", "description": "With vegetables oyster and soya", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 1300 }] },
+        { "name": "Shrimp curry", "description": "Served with yellow rice", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 1400 }] },
+        { "name": "Seafood paella", "description": "Served with gravy sauce", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 1500 }] },
+        { "name": "Whole fish sayadeyyeh", "description": "Served with nuts and gravy", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 1500 }] },
+        { "name": "Oven cooked fish salmon", "description": "Served with stewed vegetables", "variants": [{ "label": "1.5 kg", "unit": "KG", "unitPriceCents": 13500, "piecesPerUnit": 1 }] },
+        { "name": "Grilled fish", "description": "Served with taratour & harra sauce", "variants": [{ "label": "Per kg", "unit": "KG", "unitPriceCents": 6000 }] }
+      ]
+    },
+    {
+      "name": "Pasta and gratin",
+      "items": [
+        { "name": "Veggies lasagna", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 1000 }] },
+        { "name": "Creamy spinach pasta", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 1000 }] },
+        { "name": "Penne Arrabbiata served with Parmesan", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 1000 }] },
+        { "name": "Lasagna Bolognese", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 1200 }] },
+        { "name": "Tagliatelle with chicken & mushrooms", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 1200 }] },
+        { "name": "Creamy tomato shrimp pasta", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 1300 }] },
+        { "name": "Fresh spinach ravioli with white creamy mushrooms sauce", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 1400 }] },
+        { "name": "Gnocchi with white sauce/red sauce", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 1400 }] }
+      ]
+    },
+    {
+      "name": "Chicken section",
+      "items": [
+        { "name": "Oriental Rice with chicken", "description": "Served with Nuts/gravy", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 1000 }] },
+        { "name": "Chicken kabseh", "description": "Served with tomato sauce", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 1000 }] },
+        { "name": "Chicken Moghrabiyeh", "description": "Served with moughrabieh stew", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 1000 }] },
+        { "name": "Chicken biryani", "description": "Served with cashew & gravy", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 1000 }] },
+        { "name": "Chicken frikeh", "description": "Served with Nuts & gravy", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 1100 }] },
+        { "name": "Chicken stroganoff with Rice", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 1200 }] },
+        { "name": "Mexican chicken", "description": "Served with vegetables and Rice", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 1200 }] },
+        { "name": "Chicken Roulade", "description": "Served with pasta & sauced veggies", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 1300 }] },
+        { "name": "Sesame chicken noodles", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 1300 }] },
+        { "name": "Chicken curry served with Rice", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 1300 }] }
+      ]
+    },
+    {
+      "name": "Beef section",
+      "items": [
+        { "name": "Lamb mouloukhieh", "description": "Served with rice", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 1000 }] },
+        { "name": "Kebbeh or shish-barak", "description": "Served with rice", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 1000 }] },
+        { "name": "Oriental Rice with meat", "description": "Served with lamb meat, nuts and gravy", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 1200 }] },
+        { "name": "Roast beef", "description": "Served with assorted vegetables, mashed potatoes and gravy", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 1300 }] },
+        { "name": "Steak rolls", "description": "Served with vegetables", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 1300 }] },
+        { "name": "Beef stroganoff", "description": "Served with Rice", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 1300 }] },
+        { "name": "Sesame Beef noodles", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 1400 }] },
+        { "name": "Stuffed vine leaves with zucchini kastaleta", "description": "Served with zucchini kastaleta", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 1400 }] },
+        { "name": "Lamb Gigot", "description": "Served with freekeh or rice, and sautéed veggies with gravy", "variants": [{ "label": "Portion", "unit": "PORTION", "unitPriceCents": 1500 }] },
+        { "name": "Whole Beef fillet", "description": "Served with vegetables and baby potatoes and gravy", "variants": [{ "label": "2 kg", "unit": "KG", "unitPriceCents": 16000 }] }
+      ]
+    }
+  ]
+}

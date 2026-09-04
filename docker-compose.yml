@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: darines-quotes-db
+    environment:
+      POSTGRES_USER: darines
+      POSTGRES_PASSWORD: darines
+      POSTGRES_DB: darines_quotes
+    ports:
+      - "5433:5432"
+    volumes:
+      - darines_quotes_pg:/var/lib/postgresql/data
+
+volumes:
+  darines_quotes_pg:

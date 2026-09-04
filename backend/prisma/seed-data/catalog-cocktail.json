@@ -1,0 +1,306 @@
+{
+  "code": "COCKTAIL",
+  "name": "Cocktail Menu 2025-2026",
+  "currency": "USD",
+  "source": "Cocktail menu 2025-2026 final.pdf",
+  "notes": "Lebanese Corner list appeared twice in PDF text extract (two-column layout); prices taken from first occurrence. Fingerfood has Soiree vs Normal size variants.",
+  "categories": [
+    {
+      "name": "Lebanese Corner",
+      "notes": "Per dozen",
+      "items": [
+        { "name": "Fatayer Sbenekh", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 700, "piecesPerUnit": 12 }] },
+        { "name": "Fatayer bakle", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 600, "piecesPerUnit": 12 }] },
+        { "name": "Fatayer zaatar", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 600, "piecesPerUnit": 12 }] },
+        { "name": "Pizza margarita", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 800, "piecesPerUnit": 12 }] },
+        { "name": "Pizza pepperoni", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1200, "piecesPerUnit": 12 }] },
+        { "name": "Hawaiin pizza", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1200, "piecesPerUnit": 12 }] },
+        { "name": "Chicken bbq pizza", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1200, "piecesPerUnit": 12 }] },
+        { "name": "Red sauce eggplant zucchini pizza", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1200, "piecesPerUnit": 12 }] },
+        { "name": "Sambousek Jebneh", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 800, "piecesPerUnit": 12 }] },
+        { "name": "Sambousek Lahmeh", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 800, "piecesPerUnit": 12 }] },
+        { "name": "Kebbeh", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1200, "piecesPerUnit": 12 }] },
+        { "name": "Kebbe beetroot", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1400, "piecesPerUnit": 12 }] },
+        { "name": "Kebbe pumpkin", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1400, "piecesPerUnit": 12 }] },
+        { "name": "Kebbe with curry", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1400, "piecesPerUnit": 12 }] },
+        { "name": "Pesto kebbe", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1400, "piecesPerUnit": 12 }] },
+        { "name": "Kebbe With Homos", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2000, "piecesPerUnit": 12 }] },
+        { "name": "Dolma Vine Leaves in Shots", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2000, "piecesPerUnit": 12 }] },
+        { "name": "Motabbal Shots with Crackers", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2000, "piecesPerUnit": 12 }] },
+        { "name": "Falafel shots", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2000, "piecesPerUnit": 12 }] },
+        { "name": "Mini Pastry Mix soiree", "description": "Fatayer, Sambousek Lahmeh, Sambousek Jebne, Kebbe — one piece from each", "variants": [{ "label": "Dozen mix", "unit": "DOZEN", "unitPriceCents": 3500, "piecesPerUnit": 12 }] }
+      ]
+    },
+    {
+      "name": "Mini Manakesh",
+      "notes": "Per dozen",
+      "items": [
+        { "name": "Keshek", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 600, "piecesPerUnit": 12 }] },
+        { "name": "Feta fresh Thyme and Tomato", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 600, "piecesPerUnit": 12 }] },
+        { "name": "Pesto And Halloumi", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 800, "piecesPerUnit": 12 }] },
+        { "name": "Zaatar Specialty with Pomegranate", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 800, "piecesPerUnit": 12 }] },
+        { "name": "Mix Of Cheese", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 800, "piecesPerUnit": 12 }] },
+        { "name": "Mohammara With Walnuts", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 900, "piecesPerUnit": 12 }] },
+        { "name": "Goat cheese with pesto", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1000, "piecesPerUnit": 12 }] },
+        { "name": "Emmental with jam", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1000, "piecesPerUnit": 12 }] }
+      ]
+    },
+    {
+      "name": "Mini Kakeeh",
+      "notes": "Per dozen / Minimum of 2 dozen from each",
+      "items": [
+        { "name": "Labneh", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 500, "piecesPerUnit": 12, "minimumQuantity": 2 }] },
+        { "name": "Fetta", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 500, "piecesPerUnit": 12, "minimumQuantity": 2 }] },
+        { "name": "Kashkaval", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 700, "piecesPerUnit": 12, "minimumQuantity": 2 }] },
+        { "name": "Nutella", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1000, "piecesPerUnit": 12, "minimumQuantity": 2 }] },
+        { "name": "Peanut Butter", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1000, "piecesPerUnit": 12, "minimumQuantity": 2 }] },
+        { "name": "Kaak Knefeh", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1800, "piecesPerUnit": 12, "minimumQuantity": 2 }] }
+      ]
+    },
+    {
+      "name": "Breakfast",
+      "notes": "Mini croissant per dozen (Not Soiree)",
+      "items": [
+        { "name": "Cheese Croissant", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1800, "piecesPerUnit": 12 }] },
+        { "name": "Chocolate Croissant", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1800, "piecesPerUnit": 12 }] },
+        { "name": "Zaatar Croissant", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1800, "piecesPerUnit": 12 }] },
+        { "name": "Almond Croissant", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2400, "piecesPerUnit": 12 }] }
+      ]
+    },
+    {
+      "name": "Fingerfood",
+      "notes": "Soiree 3cm vs Normal 5-8cm — prices per dozen assumed from menu layout",
+      "items": [
+        { "name": "Feta Cheese", "variants": [
+          { "label": "Soiree 3cm", "unit": "DOZEN", "unitPriceCents": 700, "piecesPerUnit": 12 },
+          { "label": "Normal 5-8cm", "unit": "DOZEN", "unitPriceCents": 1000, "piecesPerUnit": 12 }
+        ]},
+        { "name": "Turkey and Cheese", "variants": [
+          { "label": "Soiree 3cm", "unit": "DOZEN", "unitPriceCents": 900, "piecesPerUnit": 12 },
+          { "label": "Normal 5-8cm", "unit": "DOZEN", "unitPriceCents": 2000, "piecesPerUnit": 12 }
+        ]},
+        { "name": "Roast Beef", "variants": [
+          { "label": "Soiree 3cm", "unit": "DOZEN", "unitPriceCents": 900, "piecesPerUnit": 12 },
+          { "label": "Normal 5-8cm", "unit": "DOZEN", "unitPriceCents": 2000, "piecesPerUnit": 12 }
+        ]},
+        { "name": "Pesto and Halloumi", "variants": [
+          { "label": "Soiree 3cm", "unit": "DOZEN", "unitPriceCents": 800, "piecesPerUnit": 12 },
+          { "label": "Normal 5-8cm", "unit": "DOZEN", "unitPriceCents": 1500, "piecesPerUnit": 12 }
+        ]},
+        { "name": "Tuna Mix", "variants": [
+          { "label": "Soiree 3cm", "unit": "DOZEN", "unitPriceCents": 800, "piecesPerUnit": 12 },
+          { "label": "Normal 5-8cm", "unit": "DOZEN", "unitPriceCents": 1500, "piecesPerUnit": 12 }
+        ]},
+        { "name": "Crab Mix", "variants": [
+          { "label": "Soiree 3cm", "unit": "DOZEN", "unitPriceCents": 1000, "piecesPerUnit": 12 },
+          { "label": "Normal 5-8cm", "unit": "DOZEN", "unitPriceCents": 1800, "piecesPerUnit": 12 }
+        ]},
+        { "name": "Beef Burger", "variants": [
+          { "label": "Soiree 3cm", "unit": "DOZEN", "unitPriceCents": 1000, "piecesPerUnit": 12 },
+          { "label": "Normal 5-8cm", "unit": "DOZEN", "unitPriceCents": 2000, "piecesPerUnit": 12 }
+        ]},
+        { "name": "Chicken Honey Mustard", "variants": [
+          { "label": "Soiree 3cm", "unit": "DOZEN", "unitPriceCents": 1100, "piecesPerUnit": 12 },
+          { "label": "Normal 5-8cm", "unit": "DOZEN", "unitPriceCents": 2000, "piecesPerUnit": 12 }
+        ]},
+        { "name": "Chicken Pesto", "variants": [
+          { "label": "Soiree 3cm", "unit": "DOZEN", "unitPriceCents": 1000, "piecesPerUnit": 12 },
+          { "label": "Normal 5-8cm", "unit": "DOZEN", "unitPriceCents": 2000, "piecesPerUnit": 12 }
+        ]},
+        { "name": "Beef Fajitas", "variants": [
+          { "label": "Soiree 3cm", "unit": "DOZEN", "unitPriceCents": 1500, "piecesPerUnit": 12 },
+          { "label": "Normal 5-8cm", "unit": "DOZEN", "unitPriceCents": 2500, "piecesPerUnit": 12 }
+        ]},
+        { "name": "Chicken Fajitas", "variants": [
+          { "label": "Soiree 3cm", "unit": "DOZEN", "unitPriceCents": 1000, "piecesPerUnit": 12 },
+          { "label": "Normal 5-8cm", "unit": "DOZEN", "unitPriceCents": 2000, "piecesPerUnit": 12 }
+        ]},
+        { "name": "Smoked Salmon with Capers", "variants": [
+          { "label": "Soiree 3cm", "unit": "DOZEN", "unitPriceCents": 2000, "piecesPerUnit": 12 },
+          { "label": "Normal 5-8cm", "unit": "DOZEN", "unitPriceCents": 4000, "piecesPerUnit": 12 }
+        ]},
+        { "name": "Brie Cheese with Dried Fruits", "variants": [
+          { "label": "Soiree 3cm", "unit": "DOZEN", "unitPriceCents": 1800, "piecesPerUnit": 12 },
+          { "label": "Normal 5-8cm", "unit": "DOZEN", "unitPriceCents": 3000, "piecesPerUnit": 12 }
+        ]},
+        { "name": "Steak with Caramelized Onions", "variants": [
+          { "label": "Soiree 3cm", "unit": "DOZEN", "unitPriceCents": 2000, "piecesPerUnit": 12 },
+          { "label": "Normal 5-8cm", "unit": "DOZEN", "unitPriceCents": 4000, "piecesPerUnit": 12 }
+        ]},
+        { "name": "Avocado Chicken Sandwich", "variants": [
+          { "label": "Soiree 3cm", "unit": "DOZEN", "unitPriceCents": 1200, "piecesPerUnit": 12 },
+          { "label": "Normal 5-8cm", "unit": "DOZEN", "unitPriceCents": 2400, "piecesPerUnit": 12 }
+        ]},
+        { "name": "Bresaola Sandwiches", "variants": [
+          { "label": "Soiree 3cm", "unit": "DOZEN", "unitPriceCents": 2000, "piecesPerUnit": 12 },
+          { "label": "Normal 5-8cm", "unit": "DOZEN", "unitPriceCents": 4000, "piecesPerUnit": 12 }
+        ]},
+        { "name": "Goat Cheese & Cranberry Melt", "variants": [
+          { "label": "Soiree 3cm", "unit": "DOZEN", "unitPriceCents": 1500, "piecesPerUnit": 12 },
+          { "label": "Normal 5-8cm", "unit": "DOZEN", "unitPriceCents": 3000, "piecesPerUnit": 12 }
+        ]}
+      ]
+    },
+    {
+      "name": "One size bites",
+      "notes": "Per dozen",
+      "items": [
+        { "name": "Fajita Wraps", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2500, "piecesPerUnit": 12 }] },
+        { "name": "Truffle Burger", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2800, "piecesPerUnit": 12 }] },
+        { "name": "Blue Cheese Burger", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 3000, "piecesPerUnit": 12 }] },
+        { "name": "Chicken shawarma", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1800, "piecesPerUnit": 12 }] },
+        { "name": "Beef shawarma", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2000, "piecesPerUnit": 12 }] }
+      ]
+    },
+    {
+      "name": "Salty tarts",
+      "notes": "Per dozen",
+      "items": [
+        { "name": "Fetta with Pomegranate", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2500, "piecesPerUnit": 12 }] },
+        { "name": "Pesto and Halloumi", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2500, "piecesPerUnit": 12 }] },
+        { "name": "Mushroom", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2500, "piecesPerUnit": 12 }] },
+        { "name": "Goat Cheese", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2500, "piecesPerUnit": 12 }] },
+        { "name": "Caprese", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2500, "piecesPerUnit": 12 }] },
+        { "name": "Brie with Dried Fruit", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 3000, "piecesPerUnit": 12 }] },
+        { "name": "Smoked Salmon with Cream Cheese", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 3500, "piecesPerUnit": 12 }] },
+        { "name": "Bresaola with Cream Cheese", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 3500, "piecesPerUnit": 12 }] }
+      ]
+    },
+    {
+      "name": "Savory Verrine",
+      "notes": "Small verrines per dozen",
+      "items": [
+        { "name": "Beetroot with goat cheese and Walnuts", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1800, "piecesPerUnit": 12 }] },
+        { "name": "Feta Cheese Mix with Tomatoes Served with Crackers", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1800, "piecesPerUnit": 12 }] },
+        { "name": "Fresh Mozzarella & Tomatoes with Basil and Balsamic", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1800, "piecesPerUnit": 12 }] },
+        { "name": "Pesto Hummus", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2000, "piecesPerUnit": 12 }] },
+        { "name": "Beetroot Hummus", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2000, "piecesPerUnit": 12 }] },
+        { "name": "Beetroot Mousse and Labneh with Molasses and Pomegranate", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2300, "piecesPerUnit": 12 }] },
+        { "name": "Shrimp with Cocktail Sauce, Avocado Cubes, and Mayo Sauce", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2400, "piecesPerUnit": 12 }] },
+        { "name": "Shrimps with Sweet Chili Sauce", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2400, "piecesPerUnit": 12 }] },
+        { "name": "Black Olives Tapenade and Feta with Sundried Tomatoes", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2400, "piecesPerUnit": 12 }] },
+        { "name": "Taco with Nachos", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2800, "piecesPerUnit": 12 }] },
+        { "name": "Smoked Salmon with Cream Cheese", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 3600, "piecesPerUnit": 12 }] },
+        { "name": "Marinated Salmon with Avocado Cubes", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 3600, "piecesPerUnit": 12 }] }
+      ]
+    },
+    {
+      "name": "Salads",
+      "notes": "Per dozen",
+      "items": [
+        { "name": "Tabbouleh", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1700, "piecesPerUnit": 12 }] },
+        { "name": "Fattoush", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1700, "piecesPerUnit": 12 }] },
+        { "name": "Caesar Salad with Parmesan & Croutons", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1700, "piecesPerUnit": 12 }] },
+        { "name": "Goat Cheese with Beetroot and Dried Berries", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1800, "piecesPerUnit": 12 }] },
+        { "name": "Chicken Caesar with Parmesan & Croutons", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1800, "piecesPerUnit": 12 }] },
+        { "name": "Pasta Mix", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1800, "piecesPerUnit": 12 }] },
+        { "name": "Apple Quinoa", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1800, "piecesPerUnit": 12 }] },
+        { "name": "Crab with Soya Sauce", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1800, "piecesPerUnit": 12 }] },
+        { "name": "Crab with Sweet Chili Sauce", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2000, "piecesPerUnit": 12 }] },
+        { "name": "Greek with Olives, Cucumber, and Cherry Tomatoes", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2000, "piecesPerUnit": 12 }] },
+        { "name": "Goat Cheese with Cranberry, Walnuts, and Arugula", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2400, "piecesPerUnit": 12 }] },
+        { "name": "Mexican Salad with Red Beans, Pepper, and Olives", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2400, "piecesPerUnit": 12 }] },
+        { "name": "Chicken Avocado Salad", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2400, "piecesPerUnit": 12 }] },
+        { "name": "Thai Noodles Salad with Cashew, Seasonal Fruits, Eggplant, and Zucchini", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2800, "piecesPerUnit": 12 }] },
+        { "name": "Kani Crabs with Soya Sauce", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 3000, "piecesPerUnit": 12 }] },
+        { "name": "Shrimp Exotic Salad", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 3000, "piecesPerUnit": 12 }] },
+        { "name": "Smoked salmon", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 3500, "piecesPerUnit": 12 }] },
+        { "name": "Marinated Salmon with Kale", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 3800, "piecesPerUnit": 12 }] }
+      ]
+    },
+    {
+      "name": "Sweet oriental",
+      "notes": "Per dozen unless noted",
+      "items": [
+        { "name": "Jello", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1500, "piecesPerUnit": 12 }] },
+        { "name": "Custard", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1800, "piecesPerUnit": 12 }] },
+        { "name": "Chocolate pudding", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1800, "piecesPerUnit": 12 }] },
+        { "name": "Strawberry pudding", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1800, "piecesPerUnit": 12 }] },
+        { "name": "Rezb Halib", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2000, "piecesPerUnit": 12 }] },
+        { "name": "Kamhyeh", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2000, "piecesPerUnit": 12 }] },
+        { "name": "Mhallabeyeh", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2000, "piecesPerUnit": 12 }] },
+        { "name": "Moghleh", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2000, "piecesPerUnit": 12 }] },
+        { "name": "Othmalieh shots", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2400, "piecesPerUnit": 12 }] },
+        { "name": "Daoukieh shots", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2400, "piecesPerUnit": 12 }] }
+      ]
+    },
+    {
+      "name": "Sweet",
+      "notes": "By Sweet Industry / Per Dozen; starting from $25 where noted",
+      "items": [
+        { "name": "Cheesecake Shots (Strawberry, Blueberry, Raspberry)", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2500, "piecesPerUnit": 12 }] },
+        { "name": "Shots Of (Tiramisu, chocolate Mousse, caramel, oreo)", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2500, "piecesPerUnit": 12 }] },
+        { "name": "Granola Chia Pudding Shot", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 3000, "piecesPerUnit": 12 }] },
+        { "name": "Mini Exotic Fruits Tart Bite", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2800, "piecesPerUnit": 12, "minimumQuantity": 2 }] },
+        { "name": "Mini Seasonal Fruits Tort Bite", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2500, "piecesPerUnit": 12, "minimumQuantity": 2 }] },
+        { "name": "Mini Chocolate Tart Bite", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 3000, "piecesPerUnit": 12, "minimumQuantity": 2 }] },
+        { "name": "Decorated (Brownies, Choux, Eclair, Donuts cookie)", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2800, "piecesPerUnit": 12 }] },
+        { "name": "Decorated Cakepops", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2800, "piecesPerUnit": 12 }] },
+        { "name": "Decorated Cakesicles", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2800, "piecesPerUnit": 12 }] },
+        { "name": "Decorated Cupcakes", "variants": [{ "label": "Piece", "unit": "PIECE", "unitPriceCents": 300, "minimumQuantity": 8 }] },
+        { "name": "Choux Tower", "variants": [{ "label": "Tower", "unit": "PIECE", "unitPriceCents": 14000 }] },
+        { "name": "Donut Tower", "variants": [{ "label": "Tower", "unit": "PIECE", "unitPriceCents": 12000 }] },
+        { "name": "Meringue Tower", "variants": [{ "label": "Tower", "unit": "PIECE", "unitPriceCents": 13000 }] },
+        { "name": "Macaron Tower", "variants": [{ "label": "Tower", "unit": "PIECE", "unitPriceCents": 25000 }] },
+        { "name": "Customized Cakes", "description": "Ask for price", "variants": [{ "label": "Custom", "unit": "PIECE", "unitPriceCents": 0, "notes": "Price on request" }] }
+      ]
+    },
+    {
+      "name": "Fruit Cups",
+      "notes": "Per dozen",
+      "items": [
+        { "name": "Seasonal", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2400, "piecesPerUnit": 12 }] },
+        { "name": "Exotic", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 3800, "piecesPerUnit": 12 }] }
+      ]
+    },
+    {
+      "name": "Drinks",
+      "items": [
+        { "name": "Cocktail Juice", "variants": [
+          { "label": "Small", "unit": "PIECE", "unitPriceCents": 400 },
+          { "label": "Large", "unit": "PIECE", "unitPriceCents": 1500 }
+        ]},
+        { "name": "Orange Juice", "variants": [
+          { "label": "Small", "unit": "PIECE", "unitPriceCents": 300 },
+          { "label": "Medium", "unit": "PIECE", "unitPriceCents": 1000 },
+          { "label": "Large", "unit": "PIECE", "unitPriceCents": 500 }
+        ]},
+        { "name": "Lemonade", "variants": [
+          { "label": "Small", "unit": "PIECE", "unitPriceCents": 300 },
+          { "label": "Medium", "unit": "PIECE", "unitPriceCents": 1200 },
+          { "label": "Large", "unit": "PIECE", "unitPriceCents": 400 }
+        ]},
+        { "name": "Minted Lemonade", "variants": [
+          { "label": "Small", "unit": "PIECE", "unitPriceCents": 400 },
+          { "label": "Medium", "unit": "PIECE", "unitPriceCents": 1200 },
+          { "label": "Large", "unit": "PIECE", "unitPriceCents": 400 }
+        ]},
+        { "name": "Blue/Pink Lemonade", "variants": [
+          { "label": "Small", "unit": "PIECE", "unitPriceCents": 400 },
+          { "label": "Medium", "unit": "PIECE", "unitPriceCents": 1200 },
+          { "label": "Large", "unit": "PIECE", "unitPriceCents": 500 }
+        ]},
+        { "name": "Kiwi", "variants": [
+          { "label": "Small", "unit": "PIECE", "unitPriceCents": 500 },
+          { "label": "Medium", "unit": "PIECE", "unitPriceCents": 1800 },
+          { "label": "Large", "unit": "PIECE", "unitPriceCents": 500 }
+        ]},
+        { "name": "Passion fruit & pineapple", "variants": [
+          { "label": "Small", "unit": "PIECE", "unitPriceCents": 500 },
+          { "label": "Medium", "unit": "PIECE", "unitPriceCents": 2000 },
+          { "label": "Large", "unit": "PIECE", "unitPriceCents": 600 }
+        ]},
+        { "name": "Soft Drinks", "variants": [
+          { "label": "330ml Can", "unit": "PIECE", "unitPriceCents": 100 },
+          { "label": "1.5L", "unit": "PIECE", "unitPriceCents": 200 },
+          { "label": "2.25L", "unit": "PIECE", "unitPriceCents": 250 }
+        ]},
+        { "name": "Water Bottles", "variants": [
+          { "label": "Small", "unit": "PIECE", "unitPriceCents": 30 },
+          { "label": "0.7L", "unit": "PIECE", "unitPriceCents": 70 },
+          { "label": "1.5L", "unit": "PIECE", "unitPriceCents": 50 }
+        ]}
+      ]
+    }
+  ]
+}

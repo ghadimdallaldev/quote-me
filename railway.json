@@ -1,0 +1,12 @@
+{
+  "$schema": "https://railway.com/railway.schema.json",
+  "build": {
+    "builder": "NIXPACKS",
+    "buildCommand": "PUPPETEER_SKIP_DOWNLOAD=1 pnpm install && pnpm build"
+  },
+  "deploy": {
+    "startCommand": "pnpm --filter @quote-me/backend exec prisma migrate deploy && pnpm --filter @quote-me/backend prisma:seed && pnpm start",
+    "healthcheckPath": "/api/health",
+    "restartPolicyType": "ON_FAILURE"
+  }
+}
