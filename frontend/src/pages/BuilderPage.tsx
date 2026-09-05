@@ -295,7 +295,10 @@ export default function BuilderPage() {
         {
           key: crypto.randomUUID(),
           lineMode: "A_LA_CARTE" as const,
-          orderName: item.name,
+          orderName:
+            variant.label && variant.label.trim() && variant.label !== item.name
+              ? `${item.name} (${variant.label})`
+              : item.name,
           unit: variant.unit,
           category: item.categoryName,
           unitPriceCents: variant.unitPriceCents,

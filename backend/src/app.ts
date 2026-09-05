@@ -14,6 +14,10 @@ import { upsertClientFromQuotation } from "./services/clients/upsert-client-from
 import { calculateQuotation } from "./services/calculations/quotation-calculation.service.js";
 import { buildCateringOrderHtml } from "./services/pdf/catering-order-template.js";
 import { renderCateringOrderPdf } from "./services/pdf/pdf.service.js";
+import {
+  resolveLineOrderNames,
+  withVarietyInOrderNames,
+} from "./services/quotations/variety-display.js";
 
 const app: express.Application = express();
 app.disable("x-powered-by");
@@ -501,6 +505,7 @@ app.post("/api/quotations", auth, async (req, res) => {
     email: data.email,
     eventLocation: data.eventLocation,
   });
+  const orderNames = await resolveLineOrderNames(data.lines);
   const quotation = await prisma.quotation.create({
     data: {
       quotationNumber: await nextQuotationNumber(),
@@ -534,7 +539,7 @@ app.post("/api/quotations", auth, async (req, res) => {
             menuVariantId: src.menuVariantId ?? null,
             menuPackageId: src.menuPackageId ?? null,
             unitSnapshot: line.unit,
-            orderNameSnapshot: line.orderName,
+            orderNameSnapshot: orderNames[idx] ?? line.orderName,
             categorySnapshot: line.category ?? null,
             quantity: line.quantity,
             unitPriceCents: line.unitPriceCents,
@@ -589,7 +594,8 @@ app.get("/api/quotations/:id", auth, async (req, res) => {
     },
   });
   if (!quotation) return res.status(404).json({ error: "Not found" });
-  res.json(quotation);
+  const items = await withVarietyInOrderNames(quotation.items);
+  res.json({ ...quotation, items });
 });
 
 app.put("/api/quotations/:id", auth, async (req, res) => {
@@ -644,6 +650,7 @@ app.put("/api/quotations/:id", auth, async (req, res) => {
     prisma.quotationCharge.deleteMany({ where: { quotationId: req.params.id } }),
   ]);
 
+  const orderNames = await resolveLineOrderNames(data.lines);
   const quotation = await prisma.quotation.update({
     where: { id: req.params.id },
     data: {
@@ -676,7 +683,7 @@ app.put("/api/quotations/:id", auth, async (req, res) => {
             menuVariantId: src.menuVariantId ?? null,
             menuPackageId: src.menuPackageId ?? null,
             unitSnapshot: line.unit,
-            orderNameSnapshot: line.orderName,
+            orderNameSnapshot: orderNames[idx] ?? line.orderName,
             categorySnapshot: line.category ?? null,
             quantity: line.quantity,
             unitPriceCents: line.unitPriceCents,
@@ -839,14 +846,16 @@ app.get("/api/quotations/:id/pdf", auth, async (req, res) => {
     },
   });
   if (!quotation) return res.status(404).json({ error: "Not found" });
+  const items = await withVarietyInOrderNames(quotation.items);
+  const forPdf = { ...quotation, items };
   const company = {
     companyName: env.companyName,
     address: env.companyAddress,
     phone: env.companyPhone,
     instagram: env.companyInstagram,
   };
-  void buildCateringOrderHtml(quotation, company);
-  const pdf = await renderCateringOrderPdf(quotation, company);
+  void buildCateringOrderHtml(forPdf, company);
+  const pdf = await renderCateringOrderPdf(forPdf, company);
   const filename = cateringOrderPdfFilename({
     customerName: quotation.customerName,
     eventDate: quotation.eventDate,
@@ -868,7 +877,8 @@ app.get("/api/quotations/:id/preview", auth, async (req, res) => {
     },
   });
   if (!quotation) return res.status(404).json({ error: "Not found" });
-  const html = buildCateringOrderHtml(quotation, {
+  const items = await withVarietyInOrderNames(quotation.items);
+  const html = buildCateringOrderHtml({ ...quotation, items }, {
     companyName: env.companyName,
     address: env.companyAddress,
     phone: env.companyPhone,
