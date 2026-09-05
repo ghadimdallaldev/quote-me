@@ -167,7 +167,7 @@
     },
     {
       "name": "Fingerfood with salty tarts box",
-      "unitPriceCents": 5900,
+      "unitPriceCents": 9500,
       "unit": "BOX",
       "totalPieces": 44,
       "notes": "Fingerfood 20pcs + Salty tarts 24pcs",
@@ -254,7 +254,7 @@
       "unit": "BOX",
       "totalPieces": 16,
       "components": [
-        { "name": "Rez b halv", "isCustomizable": true },
+        { "name": "Rez b halib", "isCustomizable": true },
         { "name": "Meghleh", "isCustomizable": true },
         { "name": "Mhallabiye", "isCustomizable": true },
         { "name": "Kashtaliyeh", "isCustomizable": true }

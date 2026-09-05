@@ -3,7 +3,7 @@
   "name": "Cocktail Menu 2025-2026",
   "currency": "USD",
   "source": "Cocktail menu 2025-2026 final.pdf",
-  "notes": "Lebanese Corner list appeared twice in PDF text extract (two-column layout); prices taken from first occurrence. Fingerfood has Soiree vs Normal size variants.",
+  "notes": "Lebanese Corner list appeared twice in PDF text extract (two-column layout); Sambousek Lahmeh uses $10 (2nd column / Catering align). Fingerfood Soiree vs Normal. Drink Large juice prices were OCR-scrambled (often cheaper than Medium) — set to ~Medium×1.4–1.5; Soft/Water sized by bottle.",
   "categories": [
     {
       "name": "Lebanese Corner",
@@ -18,7 +18,7 @@
         { "name": "Chicken bbq pizza", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1200, "piecesPerUnit": 12 }] },
         { "name": "Red sauce eggplant zucchini pizza", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1200, "piecesPerUnit": 12 }] },
         { "name": "Sambousek Jebneh", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 800, "piecesPerUnit": 12 }] },
-        { "name": "Sambousek Lahmeh", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 800, "piecesPerUnit": 12 }] },
+        { "name": "Sambousek Lahmeh", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1000, "piecesPerUnit": 12 }] },
         { "name": "Kebbeh", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1200, "piecesPerUnit": 12 }] },
         { "name": "Kebbe beetroot", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1400, "piecesPerUnit": 12 }] },
         { "name": "Kebbe pumpkin", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 1400, "piecesPerUnit": 12 }] },
@@ -255,6 +255,7 @@
     },
     {
       "name": "Drinks",
+      "notes": "Fresh juices: Small / Medium / Large. Soft drinks & water by bottle size.",
       "items": [
         { "name": "Cocktail Juice", "variants": [
           { "label": "Small", "unit": "PIECE", "unitPriceCents": 400 },
@@ -263,32 +264,32 @@
         { "name": "Orange Juice", "variants": [
           { "label": "Small", "unit": "PIECE", "unitPriceCents": 300 },
           { "label": "Medium", "unit": "PIECE", "unitPriceCents": 1000 },
-          { "label": "Large", "unit": "PIECE", "unitPriceCents": 500 }
+          { "label": "Large", "unit": "PIECE", "unitPriceCents": 1500 }
         ]},
         { "name": "Lemonade", "variants": [
           { "label": "Small", "unit": "PIECE", "unitPriceCents": 300 },
           { "label": "Medium", "unit": "PIECE", "unitPriceCents": 1200 },
-          { "label": "Large", "unit": "PIECE", "unitPriceCents": 400 }
+          { "label": "Large", "unit": "PIECE", "unitPriceCents": 1800 }
         ]},
         { "name": "Minted Lemonade", "variants": [
           { "label": "Small", "unit": "PIECE", "unitPriceCents": 400 },
           { "label": "Medium", "unit": "PIECE", "unitPriceCents": 1200 },
-          { "label": "Large", "unit": "PIECE", "unitPriceCents": 400 }
+          { "label": "Large", "unit": "PIECE", "unitPriceCents": 1800 }
         ]},
         { "name": "Blue/Pink Lemonade", "variants": [
           { "label": "Small", "unit": "PIECE", "unitPriceCents": 400 },
           { "label": "Medium", "unit": "PIECE", "unitPriceCents": 1200 },
-          { "label": "Large", "unit": "PIECE", "unitPriceCents": 500 }
+          { "label": "Large", "unit": "PIECE", "unitPriceCents": 1800 }
         ]},
         { "name": "Kiwi", "variants": [
           { "label": "Small", "unit": "PIECE", "unitPriceCents": 500 },
           { "label": "Medium", "unit": "PIECE", "unitPriceCents": 1800 },
-          { "label": "Large", "unit": "PIECE", "unitPriceCents": 500 }
+          { "label": "Large", "unit": "PIECE", "unitPriceCents": 2500 }
         ]},
         { "name": "Passion fruit & pineapple", "variants": [
           { "label": "Small", "unit": "PIECE", "unitPriceCents": 500 },
           { "label": "Medium", "unit": "PIECE", "unitPriceCents": 2000 },
-          { "label": "Large", "unit": "PIECE", "unitPriceCents": 600 }
+          { "label": "Large", "unit": "PIECE", "unitPriceCents": 2800 }
         ]},
         { "name": "Soft Drinks", "variants": [
           { "label": "330ml Can", "unit": "PIECE", "unitPriceCents": 100 },
@@ -298,7 +299,7 @@
         { "name": "Water Bottles", "variants": [
           { "label": "Small", "unit": "PIECE", "unitPriceCents": 30 },
           { "label": "0.7L", "unit": "PIECE", "unitPriceCents": 70 },
-          { "label": "1.5L", "unit": "PIECE", "unitPriceCents": 50 }
+          { "label": "1.5L", "unit": "PIECE", "unitPriceCents": 100 }
         ]}
       ]
     }
