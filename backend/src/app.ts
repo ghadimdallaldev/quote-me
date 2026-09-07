@@ -18,6 +18,11 @@ import {
   resolveLineOrderNames,
   withVarietyInOrderNames,
 } from "./services/quotations/variety-display.js";
+import { groupLinesByCategory } from "./services/quotations/group-lines-by-category.js";
+import {
+  groupQuotationItemsForDisplay,
+  type QuotationItemForDisplay,
+} from "./services/quotations/group-quotation-items.js";
 
 const app: express.Application = express();
 app.disable("x-powered-by");
@@ -369,7 +374,10 @@ app.get("/api/dashboard", auth, async (req, res) => {
 app.post("/api/quotations/calculate", auth, (req, res) => {
   try {
     const result = calculateQuotation(req.body);
-    res.json(result);
+    res.json({
+      ...result,
+      displayLines: groupLinesByCategory(result.lines),
+    });
   } catch (e) {
     res.status(400).json({ error: e instanceof Error ? e.message : "Calc failed" });
   }
@@ -595,7 +603,10 @@ app.get("/api/quotations/:id", auth, async (req, res) => {
   });
   if (!quotation) return res.status(404).json({ error: "Not found" });
   const items = await withVarietyInOrderNames(quotation.items);
-  res.json({ ...quotation, items });
+  const displayItems = groupQuotationItemsForDisplay(
+    items as QuotationItemForDisplay[],
+  );
+  res.json({ ...quotation, items, displayItems });
 });
 
 app.put("/api/quotations/:id", auth, async (req, res) => {
@@ -847,7 +858,10 @@ app.get("/api/quotations/:id/pdf", auth, async (req, res) => {
   });
   if (!quotation) return res.status(404).json({ error: "Not found" });
   const items = await withVarietyInOrderNames(quotation.items);
-  const forPdf = { ...quotation, items };
+  const displayItems = groupQuotationItemsForDisplay(
+    items as QuotationItemForDisplay[],
+  );
+  const forPdf = { ...quotation, items: displayItems };
   const company = {
     companyName: env.companyName,
     address: env.companyAddress,
@@ -878,7 +892,10 @@ app.get("/api/quotations/:id/preview", auth, async (req, res) => {
   });
   if (!quotation) return res.status(404).json({ error: "Not found" });
   const items = await withVarietyInOrderNames(quotation.items);
-  const html = buildCateringOrderHtml({ ...quotation, items }, {
+  const displayItems = groupQuotationItemsForDisplay(
+    items as QuotationItemForDisplay[],
+  );
+  const html = buildCateringOrderHtml({ ...quotation, items: displayItems }, {
     companyName: env.companyName,
     address: env.companyAddress,
     phone: env.companyPhone,

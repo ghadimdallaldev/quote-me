@@ -142,11 +142,11 @@ export async function renderCateringOrderPdf(
           noteLines.push(c.groupName);
           lastGroup = c.groupName;
         }
-        const qty =
+        const qtyPart =
           c.quantity != null
-            ? ` (${c.quantity}${c.unit ? ` ${c.unit}` : " pcs"})`
+            ? ` (${c.quantity}${c.unit ? ` ${String(c.unit).toLowerCase()}` : ""})`
             : "";
-        noteLines.push(`• ${c.name}${qty}`);
+        noteLines.push(`• ${c.name}${qtyPart}`);
       }
       const noteHeight = Math.max(28, noteLines.length * 11 + 10);
       if (y + noteHeight > 760) {
@@ -162,8 +162,8 @@ export async function renderCateringOrderPdf(
         doc.moveTo(x, y).lineTo(x, y + noteHeight).stroke();
       }
 
-      const price =
-        item.quantity > 1 ? item.lineTotalCents : item.unitPriceCents;
+      // Paper sample puts the group total in the Unit Price column
+      const price = item.lineTotalCents;
       doc.font("Helvetica").fontSize(10).fillColor("#111");
       doc.text(String(item.quantity), cols[0], y + 6, {
         width: widths[0],

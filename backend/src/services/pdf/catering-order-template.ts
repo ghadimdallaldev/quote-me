@@ -74,7 +74,7 @@ function bullet(c: {
 }) {
   const qty =
     c.quantity != null
-      ? ` (${c.quantity}${c.unit ? ` ${escapeHtml(c.unit)}` : " pcs"})`
+      ? ` (${c.quantity}${c.unit ? ` ${escapeHtml(String(c.unit).toLowerCase())}` : ""})`
       : "";
   return `<div>• ${escapeHtml(c.name)}${qty}</div>`;
 }
@@ -88,9 +88,7 @@ export function buildCateringOrderHtml(
 
   const rows = quotation.items
     .map((item) => {
-      // Aya sample: unit price for single-box lines; aggregated amount for multi-dozen sweets line
-      const priceCell =
-        item.quantity > 1 ? item.lineTotalCents : item.unitPriceCents;
+      const priceCell = item.lineTotalCents;
       return `<tr>
         <td class="center">${item.quantity}</td>
         <td>${escapeHtml(item.unitSnapshot)}</td>

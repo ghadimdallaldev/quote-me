@@ -23,20 +23,25 @@ const GENERIC_VARIANT_LABELS = new Set([
   "custom",
 ]);
 
-/** "Lebanese Corner: Fatayer Sbenekh" or "Fingerfood: Roast Beef (Soiree 3cm)" */
+/** "Lebanese Corner: Fatayer" for menu picker; order lines store item name only. */
 function formatOrderName(
   categoryName: string,
   itemName: string,
   variantLabel?: string,
 ) {
   const category = categoryName.trim();
-  const base = category ? `${category}: ${itemName}` : itemName;
+  const item = formatItemOrderName(itemName, variantLabel);
+  return category ? `${category}: ${item}` : item;
+}
+
+function formatItemOrderName(itemName: string, variantLabel?: string) {
+  const item = itemName.trim();
   const label = (variantLabel ?? "").trim();
-  if (!label) return base;
-  if (GENERIC_VARIANT_LABELS.has(label.toLowerCase())) return base;
-  if (base.toLowerCase().includes(label.toLowerCase())) return base;
-  if (itemName.toLowerCase() === label.toLowerCase()) return base;
-  return `${base} (${label})`;
+  if (!label) return item;
+  if (GENERIC_VARIANT_LABELS.has(label.toLowerCase())) return item;
+  if (item.toLowerCase().includes(label.toLowerCase())) return item;
+  if (item.toLowerCase() === label.toLowerCase()) return item;
+  return `${item} (${label})`;
 }
 
 function MenuAddRow({
@@ -324,11 +329,7 @@ export default function BuilderPage() {
         {
           key: crypto.randomUUID(),
           lineMode: "A_LA_CARTE" as const,
-          orderName: formatOrderName(
-            item.categoryName,
-            item.name,
-            variant.label,
-          ),
+          orderName: formatItemOrderName(item.name, variant.label),
           unit: variant.unit,
           category: item.categoryName,
           unitPriceCents: variant.unitPriceCents,
@@ -361,7 +362,7 @@ export default function BuilderPage() {
             key: `guest-${v.id}`,
             lineMode: "GUEST_BASED",
             guestGroupId: "fingerfood",
-            orderName: formatOrderName(fi.categoryName, fi.name, v.label),
+            orderName: formatItemOrderName(fi.name, v.label),
             unit: "Piece",
             category: fi.categoryName,
             unitPriceCents: Math.max(1, Math.round(v.unitPriceCents / 12)),
@@ -409,7 +410,9 @@ export default function BuilderPage() {
     }
   }
 
-  const calcLines = (calc?.lines as Array<Record<string, unknown>>) ?? [];
+  const calcLines = (calc?.displayLines as Array<Record<string, unknown>>) ??
+    (calc?.lines as Array<Record<string, unknown>>) ??
+    [];
   const canSave = !saving && !!customerName && lines.length > 0;
 
   return (
@@ -596,48 +599,76 @@ export default function BuilderPage() {
           {calcLines.length === 0 && <p className="muted">Select items from the fixed menu.</p>}
           {calcLines.map((line) => {
             const key = String(line.key);
-            const source = lines.find((l) => l.key === key);
-            const editable = source && source.lineMode !== "GUEST_BASED";
+            const sourceKeys = (line.sourceKeys as string[] | undefined) ?? [key];
+            const noteComponents =
+              (line.noteComponents as Array<Record<string, unknown>> | undefined) ??
+              [];
             return (
               <div className="line-item" key={key}>
                 <div className="row" style={{ justifyContent: "space-between" }}>
                   <strong>{String(line.orderName)}</strong>
                   <button
                     className="ghost"
-                    onClick={() => setLines((prev) => prev.filter((l) => l.key !== key))}
+                    onClick={() =>
+                      setLines((prev) =>
+                        prev.filter((l) => !sourceKeys.includes(l.key)),
+                      )
+                    }
                   >
                     Remove
                   </button>
                 </div>
-                <div className="row" style={{ alignItems: "center", gap: 8, marginTop: 6 }}>
-                  <span className="muted">{String(line.unit)}</span>
-                  {editable ? (
-                    <>
-                      <label className="muted" style={{ fontSize: 12 }}>
-                        Qty
-                      </label>
-                      <input
-                        type="number"
-                        inputMode="decimal"
-                        className="qty-input"
-                        min={
-                          source.minimumQuantity && source.minimumQuantity > 0
-                            ? source.minimumQuantity
-                            : 0.5
-                        }
-                        step="any"
-                        value={source.quantity ?? Number(line.quantity) ?? 1}
-                        onChange={(e) => setLineQuantity(key, Number(e.target.value))}
-                      />
-                    </>
-                  ) : (
-                    <span className="muted">qty {String(line.quantity)}</span>
-                  )}
-                  <span className="muted">
-                    · {money(Number(line.unitPriceCents))} · {money(Number(line.lineTotalCents))}
-                  </span>
+                <div className="muted" style={{ fontSize: 12, marginTop: 4 }}>
+                  {String(line.quantity)} {String(line.unit)} ·{" "}
+                  {money(Number(line.lineTotalCents))}
                 </div>
-                {Boolean(line.wasAutoCalculated) && <span className="badge">Auto-calculated</span>}
+                {noteComponents.length > 0 ? (
+                  <div style={{ marginTop: 8 }}>
+                    {noteComponents.map((note, idx) => {
+                      const sourceKey = sourceKeys[idx];
+                      const source = sourceKey
+                        ? lines.find((l) => l.key === sourceKey)
+                        : undefined;
+                      const editable = source && source.lineMode !== "GUEST_BASED";
+                      return (
+                        <div
+                          key={`${key}-note-${idx}`}
+                          className="row"
+                          style={{ alignItems: "center", gap: 8, marginTop: 4 }}
+                        >
+                          <span style={{ flex: 1, fontSize: 13 }}>
+                            • {String(note.name)}
+                          </span>
+                          {editable && source ? (
+                            <input
+                              type="number"
+                              inputMode="decimal"
+                              className="qty-input"
+                              min={
+                                source.minimumQuantity && source.minimumQuantity > 0
+                                  ? source.minimumQuantity
+                                  : 0.5
+                              }
+                              step="any"
+                              value={source.quantity ?? Number(note.quantity) ?? 1}
+                              onChange={(e) =>
+                                setLineQuantity(source.key, Number(e.target.value))
+                              }
+                              title="Variety quantity"
+                            />
+                          ) : (
+                            <span className="muted" style={{ fontSize: 12 }}>
+                              {String(note.quantity)} {String(note.unit ?? "")}
+                            </span>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                ) : null}
+                {Boolean(line.wasAutoCalculated) && (
+                  <span className="badge">Auto-calculated</span>
+                )}
               </div>
             );
           })}

@@ -19,24 +19,23 @@ const GENERIC_LABELS = new Set([
   "custom",
 ]);
 
-/** Build display name: "Category: Item (variety)" when useful. */
+/** Build display name: "Item (variety)" — category is stored separately. */
 export function formatMenuOrderName(
   categoryName: string | null | undefined,
   itemName: string,
   variantLabel?: string | null,
 ): string {
-  const category = (categoryName ?? "").trim();
+  void categoryName; // category belongs in categorySnapshot / Order column when grouped
   const item = itemName.trim();
-  const base = category ? `${category}: ${item}` : item;
   const label = (variantLabel ?? "").trim();
-  if (!label) return base;
-  if (GENERIC_LABELS.has(label.toLowerCase())) return base;
-  if (base.toLowerCase().includes(label.toLowerCase())) return base;
-  if (item.toLowerCase() === label.toLowerCase()) return base;
-  return `${base} (${label})`;
+  if (!label) return item;
+  if (GENERIC_LABELS.has(label.toLowerCase())) return item;
+  if (item.toLowerCase().includes(label.toLowerCase())) return item;
+  if (item.toLowerCase() === label.toLowerCase()) return item;
+  return `${item} (${label})`;
 }
 
-/** Ensure category + variety/label appear on quotation line display names. */
+/** Ensure variety/label appears on quotation line display names (not category). */
 export async function withVarietyInOrderNames<T extends NamedLine>(
   items: T[],
 ): Promise<T[]> {
@@ -75,12 +74,15 @@ export async function withVarietyInOrderNames<T extends NamedLine>(
       v.label,
     );
     const current = item.orderNameSnapshot ?? "";
-    // Prefer enriched name when current is missing category or variety context
-    if (
-      current.toLowerCase().includes(v.menuItem.category.name.toLowerCase()) &&
-      current.toLowerCase().includes(v.menuItem.name.toLowerCase())
-    ) {
-      return item;
+    if (current.toLowerCase().includes(v.menuItem.name.toLowerCase())) {
+      // Already has item name; only upgrade if variety label is missing
+      if (
+        !v.label ||
+        GENERIC_LABELS.has(v.label.toLowerCase()) ||
+        current.toLowerCase().includes(v.label.toLowerCase())
+      ) {
+        return item;
+      }
     }
     return {
       ...item,

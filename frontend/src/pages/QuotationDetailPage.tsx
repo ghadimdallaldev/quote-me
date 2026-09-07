@@ -30,7 +30,10 @@ export default function QuotationDetailPage() {
   }
 
   if (!q) return <p>Loading…</p>;
-  const items = (q.items as Array<Record<string, unknown>>) ?? [];
+  const items =
+    ((q.displayItems as Array<Record<string, unknown>>) ??
+      (q.items as Array<Record<string, unknown>>) ??
+      []);
   const status = String(q.status);
   const cancelled = status === "CANCELLED";
 
@@ -138,12 +141,14 @@ export default function QuotationDetailPage() {
                 <td>{String(item.quantity)}</td>
                 <td>{String(item.unitSnapshot)}</td>
                 <td>{String(item.orderNameSnapshot)}</td>
-                <td>{money(Number(item.unitPriceCents))}</td>
+                <td>{money(Number(item.lineTotalCents))}</td>
                 <td>
                   {((item.components as Array<Record<string, unknown>>) ?? []).map((c) => (
-                    <div key={String(c.id)}>
+                    <div key={String(c.id ?? c.name)}>
                       • {String(c.name)}
-                      {c.quantity != null ? ` (${c.quantity})` : ""}
+                      {c.quantity != null
+                        ? ` (${c.quantity}${c.unit ? ` ${String(c.unit).toLowerCase()}` : ""})`
+                        : ""}
                     </div>
                   ))}
                 </td>
