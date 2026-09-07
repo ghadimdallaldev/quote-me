@@ -44,6 +44,25 @@ function formatItemOrderName(itemName: string, variantLabel?: string) {
   return `${item} (${label})`;
 }
 
+const WAITER_LINE_KEY = "waiters";
+
+function buildWaiterLine(count: number, rateDollars: number): BuilderLine {
+  return {
+    key: WAITER_LINE_KEY,
+    lineMode: "A_LA_CARTE",
+    orderName: "Waiters",
+    unit: "Waiter",
+    unitPriceCents: Math.max(0, Math.round(rateDollars * 100)),
+    quantity: count,
+  };
+}
+
+function isWaiterItem(item: Record<string, unknown>) {
+  const unit = String(item.unitSnapshot ?? item.unit ?? "").toLowerCase();
+  const name = String(item.orderNameSnapshot ?? item.orderName ?? "").toLowerCase();
+  return unit === "waiter" || name === "waiters";
+}
+
 function MenuAddRow({
   title,
   subtitle,
@@ -125,6 +144,8 @@ export default function BuilderPage() {
   >([]);
   const [eventDate, setEventDate] = useState("");
   const [guestCount, setGuestCount] = useState(0);
+  const [waiterCount, setWaiterCount] = useState(0);
+  const [waiterRate, setWaiterRate] = useState(50);
   const [lines, setLines] = useState<BuilderLine[]>([]);
   const [delivery, setDelivery] = useState(0);
   const [calc, setCalc] = useState<Record<string, unknown> | null>(null);
@@ -192,8 +213,20 @@ export default function BuilderPage() {
         }
         setGuestCount(Number(quotation.guestCount ?? 0));
         const items = (quotation.items as Array<Record<string, unknown>>) ?? [];
+        const waiterItem = items.find(isWaiterItem);
+        const savedWaiterCount = Number(quotation.waiterCount ?? 0);
+        if (waiterItem) {
+          const qty = Number(waiterItem.quantity ?? savedWaiterCount ?? 0);
+          setWaiterCount(qty > 0 ? qty : savedWaiterCount);
+          const unitPrice = Number(waiterItem.unitPriceCents ?? 0);
+          if (unitPrice > 0) setWaiterRate(unitPrice / 100);
+        } else {
+          setWaiterCount(savedWaiterCount);
+        }
         setLines(
-          items.map((item, idx) => ({
+          items
+            .filter((item) => !isWaiterItem(item))
+            .map((item, idx) => ({
             key: String(item.id ?? idx),
             lineMode: String(item.lineMode) as BuilderLine["lineMode"],
             orderName: String(item.orderNameSnapshot),
@@ -232,8 +265,15 @@ export default function BuilderPage() {
     );
   }, [catalog, search]);
 
+  const calcLinesPayload = useMemo(() => {
+    if (waiterCount > 0) {
+      return [...lines, buildWaiterLine(waiterCount, waiterRate)];
+    }
+    return lines;
+  }, [lines, waiterCount, waiterRate]);
+
   useEffect(() => {
-    if (lines.length === 0) {
+    if (calcLinesPayload.length === 0) {
       setCalc(null);
       return;
     }
@@ -249,7 +289,7 @@ export default function BuilderPage() {
       api
         .calculate({
           guestCount: guestCount || undefined,
-          lines,
+          lines: calcLinesPayload,
           guestRulesByGroup,
           charges: [{ name: "Delivery Charge", type: "DELIVERY", value: delivery }],
         })
@@ -257,7 +297,7 @@ export default function BuilderPage() {
         .catch(console.error);
     }, 180);
     return () => window.clearTimeout(handle);
-  }, [lines, guestCount, delivery]);
+  }, [calcLinesPayload, guestCount, delivery, lines]);
 
   function setLineQuantity(key: string, raw: number) {
     setLines((prev) =>
@@ -394,7 +434,8 @@ export default function BuilderPage() {
         deliveryLocationId: deliveryLocationId || null,
         eventDate: eventDate || null,
         guestCount: guestCount || null,
-        lines,
+        waiterCount: waiterCount || null,
+        lines: calcLinesPayload,
         guestRulesByGroup,
         charges: [{ name: "Delivery Charge", type: "DELIVERY", value: delivery }],
       };
@@ -499,6 +540,25 @@ export default function BuilderPage() {
           placeholder="Guests"
           value={guestCount || ""}
           onChange={(e) => setGuestCount(Number(e.target.value) || 0)}
+        />
+        <input
+          type="number"
+          inputMode="numeric"
+          min={0}
+          placeholder="Waiters"
+          value={waiterCount || ""}
+          onChange={(e) => setWaiterCount(Math.max(0, Math.floor(Number(e.target.value) || 0)))}
+          title="Number of waiters"
+        />
+        <input
+          type="number"
+          inputMode="decimal"
+          min={0}
+          step="0.01"
+          placeholder="Waiter rate ($)"
+          value={waiterRate}
+          onChange={(e) => setWaiterRate(Math.max(0, Number(e.target.value) || 0))}
+          title="Price per waiter (default $50)"
         />
       </div>
 
@@ -609,11 +669,15 @@ export default function BuilderPage() {
                   <strong>{String(line.orderName)}</strong>
                   <button
                     className="ghost"
-                    onClick={() =>
+                    onClick={() => {
+                      if (sourceKeys.includes(WAITER_LINE_KEY) || key === WAITER_LINE_KEY) {
+                        setWaiterCount(0);
+                        return;
+                      }
                       setLines((prev) =>
                         prev.filter((l) => !sourceKeys.includes(l.key)),
-                      )
-                    }
+                      );
+                    }}
                   >
                     Remove
                   </button>
@@ -694,13 +758,21 @@ export default function BuilderPage() {
           <div>
             Subtotal: <strong>{money(Number(calc?.subtotalCents ?? 0))}</strong>
           </div>
+          {waiterCount > 0 ? (
+            <div className="muted" style={{ fontSize: 13 }}>
+              Waiters: {waiterCount} × {money(Math.round(waiterRate * 100))} ={" "}
+              <strong>{money(Math.round(waiterCount * waiterRate * 100))}</strong>
+            </div>
+          ) : null}
           <div>
             Delivery:{" "}
             <strong>
               {money(
                 Number(
-                  (calc?.charges as Array<{ amountCents: number }> | undefined)?.[0]
-                    ?.amountCents ?? 0,
+                  (
+                    (calc?.charges as Array<{ type?: string; amountCents: number }> | undefined) ??
+                    []
+                  ).find((c) => c.type === "DELIVERY")?.amountCents ?? 0,
                 ),
               )}
             </strong>
