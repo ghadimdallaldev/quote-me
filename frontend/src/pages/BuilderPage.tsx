@@ -10,6 +10,35 @@ import type {
   MenuVariant,
 } from "../lib/types";
 
+const GENERIC_VARIANT_LABELS = new Set([
+  "dozen",
+  "piece",
+  "portion",
+  "box",
+  "person",
+  "cake",
+  "shot",
+  "jar",
+  "tower",
+  "custom",
+]);
+
+/** "Lebanese Corner: Fatayer Sbenekh" or "Fingerfood: Roast Beef (Soiree 3cm)" */
+function formatOrderName(
+  categoryName: string,
+  itemName: string,
+  variantLabel?: string,
+) {
+  const category = categoryName.trim();
+  const base = category ? `${category}: ${itemName}` : itemName;
+  const label = (variantLabel ?? "").trim();
+  if (!label) return base;
+  if (GENERIC_VARIANT_LABELS.has(label.toLowerCase())) return base;
+  if (base.toLowerCase().includes(label.toLowerCase())) return base;
+  if (itemName.toLowerCase() === label.toLowerCase()) return base;
+  return `${base} (${label})`;
+}
+
 function MenuAddRow({
   title,
   subtitle,
@@ -295,10 +324,11 @@ export default function BuilderPage() {
         {
           key: crypto.randomUUID(),
           lineMode: "A_LA_CARTE" as const,
-          orderName:
-            variant.label && variant.label.trim() && variant.label !== item.name
-              ? `${item.name} (${variant.label})`
-              : item.name,
+          orderName: formatOrderName(
+            item.categoryName,
+            item.name,
+            variant.label,
+          ),
           unit: variant.unit,
           category: item.categoryName,
           unitPriceCents: variant.unitPriceCents,
@@ -331,7 +361,7 @@ export default function BuilderPage() {
             key: `guest-${v.id}`,
             lineMode: "GUEST_BASED",
             guestGroupId: "fingerfood",
-            orderName: `${fi.name} (${v.label})`,
+            orderName: formatOrderName(fi.categoryName, fi.name, v.label),
             unit: "Piece",
             category: fi.categoryName,
             unitPriceCents: Math.max(1, Math.round(v.unitPriceCents / 12)),
@@ -526,15 +556,15 @@ export default function BuilderPage() {
           ))}
           {filteredItems.map((item) => (
             <div className="menu-item" key={item.id}>
-              <strong>{item.name}</strong>
               <div className="muted" style={{ fontSize: 12 }}>
                 {item.categoryName}
               </div>
+              <strong>{item.name}</strong>
               {item.variants.map((v) => (
                 <div key={v.id} style={{ marginTop: 6 }}>
                   <MenuAddRow
-                    title={`${v.label} · ${v.unit}`}
-                    subtitle={money(v.unitPriceCents)}
+                    title={formatOrderName(item.categoryName, item.name, v.label)}
+                    subtitle={`${v.label} · ${v.unit} · ${money(v.unitPriceCents)}`}
                     priceLabel=""
                     unitLabel={v.unit}
                     defaultQty={v.minimumQuantity && v.minimumQuantity > 0 ? v.minimumQuantity : 1}

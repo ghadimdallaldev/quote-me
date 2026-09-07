@@ -277,6 +277,31 @@ async function main() {
   }
 
   const c2 = await upsertCatalog(cocktail.code, cocktail.name, 2);
+
+  // Rename legacy Fruit Cups short names before upsert (avoids duplicate slugs)
+  const fruitCups = await prisma.menuCategory.findFirst({
+    where: { catalogId: c2.id, name: "Fruit Cups" },
+  });
+  if (fruitCups) {
+    const renames: Array<[string, string]> = [
+      ["seasonal", "Seasonal fruit cups"],
+      ["exotic", "Exotic fruit cups"],
+    ];
+    for (const [oldSlug, newName] of renames) {
+      const existing = await prisma.menuItem.findUnique({
+        where: {
+          categoryId_slug: { categoryId: fruitCups.id, slug: oldSlug },
+        },
+      });
+      if (existing) {
+        await prisma.menuItem.update({
+          where: { id: existing.id },
+          data: { name: newName, slug: slugify(newName) },
+        });
+      }
+    }
+  }
+
   i = 0;
   for (const category of cocktail.categories) {
     await seedItemCategory(c2.id, category, i++);

@@ -6,7 +6,37 @@ type NamedLine = {
   unitSnapshot?: string;
 };
 
-/** Ensure variety/label appears on quotation line display names. */
+const GENERIC_LABELS = new Set([
+  "dozen",
+  "piece",
+  "portion",
+  "box",
+  "person",
+  "cake",
+  "shot",
+  "jar",
+  "tower",
+  "custom",
+]);
+
+/** Build display name: "Category: Item (variety)" when useful. */
+export function formatMenuOrderName(
+  categoryName: string | null | undefined,
+  itemName: string,
+  variantLabel?: string | null,
+): string {
+  const category = (categoryName ?? "").trim();
+  const item = itemName.trim();
+  const base = category ? `${category}: ${item}` : item;
+  const label = (variantLabel ?? "").trim();
+  if (!label) return base;
+  if (GENERIC_LABELS.has(label.toLowerCase())) return base;
+  if (base.toLowerCase().includes(label.toLowerCase())) return base;
+  if (item.toLowerCase() === label.toLowerCase()) return base;
+  return `${base} (${label})`;
+}
+
+/** Ensure category + variety/label appear on quotation line display names. */
 export async function withVarietyInOrderNames<T extends NamedLine>(
   items: T[],
 ): Promise<T[]> {
@@ -21,19 +51,40 @@ export async function withVarietyInOrderNames<T extends NamedLine>(
 
   const variants = await prisma.menuItemVariant.findMany({
     where: { id: { in: ids } },
-    select: { id: true, label: true, unit: true },
+    select: {
+      id: true,
+      label: true,
+      unit: true,
+      menuItem: {
+        select: {
+          name: true,
+          category: { select: { name: true } },
+        },
+      },
+    },
   });
   const byId = new Map(variants.map((v) => [v.id, v]));
 
   return items.map((item) => {
     if (!item.menuVariantId) return item;
     const v = byId.get(item.menuVariantId);
-    if (!v?.label) return item;
-    const name = item.orderNameSnapshot ?? "";
-    if (name.toLowerCase().includes(v.label.toLowerCase())) return item;
+    if (!v) return item;
+    const preferred = formatMenuOrderName(
+      v.menuItem.category.name,
+      v.menuItem.name,
+      v.label,
+    );
+    const current = item.orderNameSnapshot ?? "";
+    // Prefer enriched name when current is missing category or variety context
+    if (
+      current.toLowerCase().includes(v.menuItem.category.name.toLowerCase()) &&
+      current.toLowerCase().includes(v.menuItem.name.toLowerCase())
+    ) {
+      return item;
+    }
     return {
       ...item,
-      orderNameSnapshot: `${name} (${v.label})`,
+      orderNameSnapshot: preferred || current,
     };
   });
 }
@@ -51,17 +102,27 @@ export async function resolveLineOrderNames(
   const variants = ids.length
     ? await prisma.menuItemVariant.findMany({
         where: { id: { in: ids } },
-        select: { id: true, label: true },
+        select: {
+          id: true,
+          label: true,
+          menuItem: {
+            select: {
+              name: true,
+              category: { select: { name: true } },
+            },
+          },
+        },
       })
     : [];
-  const byId = new Map(variants.map((v) => [v.id, v.label]));
+  const byId = new Map(variants.map((v) => [v.id, v]));
 
   return lines.map((line) => {
-    const label = line.menuVariantId ? byId.get(line.menuVariantId) : undefined;
-    if (!label) return line.orderName;
-    if (line.orderName.toLowerCase().includes(label.toLowerCase())) {
-      return line.orderName;
-    }
-    return `${line.orderName} (${label})`;
+    const v = line.menuVariantId ? byId.get(line.menuVariantId) : undefined;
+    if (!v) return line.orderName;
+    return formatMenuOrderName(
+      v.menuItem.category.name,
+      v.menuItem.name,
+      v.label,
+    );
   });
 }

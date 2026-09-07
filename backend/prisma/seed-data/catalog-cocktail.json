@@ -249,8 +249,8 @@
       "name": "Fruit Cups",
       "notes": "Per dozen",
       "items": [
-        { "name": "Seasonal", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2400, "piecesPerUnit": 12 }] },
-        { "name": "Exotic", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 3800, "piecesPerUnit": 12 }] }
+        { "name": "Seasonal fruit cups", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 2400, "piecesPerUnit": 12 }] },
+        { "name": "Exotic fruit cups", "variants": [{ "label": "Dozen", "unit": "DOZEN", "unitPriceCents": 3800, "piecesPerUnit": 12 }] }
       ]
     },
     {

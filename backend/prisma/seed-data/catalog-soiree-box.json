@@ -153,7 +153,7 @@
     },
     {
       "name": "Salty tart box",
-      "unitPriceCents": 5900,
+      "unitPriceCents": 9500,
       "unit": "BOX",
       "totalPieces": 51,
       "components": [
@@ -167,7 +167,7 @@
     },
     {
       "name": "Fingerfood with salty tarts box",
-      "unitPriceCents": 9500,
+      "unitPriceCents": 5900,
       "unit": "BOX",
       "totalPieces": 44,
       "notes": "Fingerfood 20pcs + Salty tarts 24pcs",
@@ -229,7 +229,7 @@
     },
     {
       "name": "Seasonal fruit cups box",
-      "unitPriceCents": 3400,
+      "unitPriceCents": 2400,
       "unit": "BOX",
       "notes": "16 cups + juice bottles",
       "totalPieces": 16
