@@ -164,20 +164,21 @@ export async function renderCateringOrderPdf(
     let y = 190;
 
     const drawHeader = () => {
-      const headerH = 22;
-      doc.rect(tableLeft, y, tableWidth, headerH).fillAndStroke("#f2f2f2", "#222");
-      let x = tableLeft;
+      const headerH = 24;
+      doc.strokeColor("#222").lineWidth(1).fillColor("#f2f2f2");
+      for (let i = 0; i < colWidths.length; i++) {
+        doc.rect(colXs[i]!, y, colWidths[i]!, headerH).fill();
+      }
+      // Borders after fills so shared edges aren't covered
+      doc.rect(tableLeft, y, tableWidth, headerH).stroke();
+      let vx = tableLeft;
       for (let i = 0; i < colWidths.length - 1; i++) {
-        x += colWidths[i]!;
-        doc
-          .moveTo(x, y)
-          .lineTo(x, y + headerH)
-          .strokeColor("#222")
-          .stroke();
+        vx += colWidths[i]!;
+        doc.moveTo(vx, y).lineTo(vx, y + headerH).stroke();
       }
       doc.fillColor("#111").font("Helvetica-Bold").fontSize(9);
       headers.forEach((h, i) => {
-        doc.text(h, colXs[i]! + padX, y + 6, {
+        doc.text(h, colXs[i]! + padX, y + 7, {
           width: colWidths[i]! - padX * 2,
           align: i === 0 || i === 3 ? "center" : "left",
           lineBreak: false,
@@ -195,31 +196,25 @@ export async function renderCateringOrderPdf(
       const noteH = noteText
         ? doc.heightOfString(noteText, { width: colWidths[4]! - padX * 2 })
         : 0;
-      return Math.max(26, orderH + padY * 2, noteH + padY * 2);
+      return Math.max(28, orderH + padY * 2, noteH + padY * 2);
     };
 
-    const drawCellText = (
-      text: string,
+    const paintCellText = (
       colIndex: number,
       cellY: number,
       rowH: number,
-      opts: { fontSize?: number; align?: "left" | "center" | "right"; bold?: boolean } = {},
+      text: string,
+      opts: { fontSize?: number; align?: "left" | "center" | "right" } = {},
     ) => {
-      const fontSize = opts.fontSize ?? 9;
-      const align = opts.align ?? "left";
+      if (!text) return;
       const cellX = colXs[colIndex]!;
       const cellW = colWidths[colIndex]!;
+      const align = opts.align ?? "left";
+      const fontSize = opts.fontSize ?? 9;
       const rightInset = align === "right" ? 8 : padX;
-      const textX = cellX + padX;
-      const textW = Math.max(8, cellW - padX - rightInset);
-
-      doc
-        .font(opts.bold ? "Helvetica-Bold" : "Helvetica")
-        .fontSize(fontSize)
-        .fillColor("#111");
-      // Absolute position every cell; never rely on PDFKit's flowing cursor
-      doc.text(text, textX, cellY + padY, {
-        width: textW,
+      doc.font("Helvetica").fontSize(fontSize).fillColor("#111");
+      doc.text(text, cellX + padX, cellY + padY, {
+        width: Math.max(8, cellW - padX - rightInset),
         height: Math.max(10, rowH - padY * 2),
         align,
         ellipsis: true,
@@ -227,8 +222,7 @@ export async function renderCateringOrderPdf(
       });
     };
 
-    const strokeRowGrid = (rowTop: number, rowH: number) => {
-      doc.save();
+    const strokeRow = (rowTop: number, rowH: number) => {
       doc.strokeColor("#222").lineWidth(1);
       doc.rect(tableLeft, rowTop, tableWidth, rowH).stroke();
       let vx = tableLeft;
@@ -236,7 +230,6 @@ export async function renderCateringOrderPdf(
         vx += colWidths[i]!;
         doc.moveTo(vx, rowTop).lineTo(vx, rowTop + rowH).stroke();
       }
-      doc.restore();
     };
 
     drawHeader();
@@ -253,23 +246,20 @@ export async function renderCateringOrderPdf(
 
       const rowTop = y;
 
-      drawCellText(formatQty(item.quantity), 0, rowTop, rowH, {
-        align: "center",
-        fontSize: 9,
-      });
-      drawCellText(item.unitSnapshot || "", 1, rowTop, rowH, { fontSize: 9 });
-      drawCellText(item.orderNameSnapshot || "", 2, rowTop, rowH, { fontSize: 9 });
-      // Paper sample puts the group total in the Unit Price column
-      drawCellText(money(item.lineTotalCents), 3, rowTop, rowH, {
-        align: "right",
-        fontSize: 9,
-      });
-      if (noteText) {
-        drawCellText(noteText, 4, rowTop, rowH, { fontSize: 8 });
-      }
+      // 1) White fill for the whole row (no per-cell stroke — that eats shared borders)
+      doc.save();
+      doc.fillColor("#ffffff").rect(tableLeft, rowTop, tableWidth, rowH).fill();
+      doc.restore();
 
-      // Borders last so grid lines always sit on top of text
-      strokeRowGrid(rowTop, rowH);
+      // 2) Text
+      paintCellText(0, rowTop, rowH, formatQty(item.quantity), { align: "center" });
+      paintCellText(1, rowTop, rowH, item.unitSnapshot || "");
+      paintCellText(2, rowTop, rowH, item.orderNameSnapshot || "");
+      paintCellText(3, rowTop, rowH, money(item.lineTotalCents), { align: "right" });
+      paintCellText(4, rowTop, rowH, noteText || "", { fontSize: 8 });
+
+      // 3) Grid on top
+      strokeRow(rowTop, rowH);
 
       y = rowTop + rowH;
     }
