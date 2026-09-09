@@ -55,6 +55,27 @@ function logoPath() {
   return join(here, "../../../assets/darines-logo.png");
 }
 
+function formatQty(qty: number): string {
+  return Number.isInteger(qty) ? String(qty) : String(Number(qty.toFixed(4)));
+}
+
+function buildNoteText(item: PdfItem): string {
+  const noteLines: string[] = [];
+  let lastGroup = "";
+  for (const c of item.components) {
+    if (c.groupName && c.groupName !== lastGroup) {
+      noteLines.push(c.groupName);
+      lastGroup = c.groupName;
+    }
+    const qtyPart =
+      c.quantity != null
+        ? ` (${c.quantity}${c.unit ? ` ${String(c.unit).toLowerCase()}` : ""})`
+        : "";
+    noteLines.push(`• ${c.name}${qtyPart}`);
+  }
+  return noteLines.join("\n");
+}
+
 /** Primary PDF generator — structured Aya-style layout via PDFKit (no Chromium required). */
 export async function renderCateringOrderPdf(
   quotation: PdfQuotation,
@@ -67,21 +88,45 @@ export async function renderCateringOrderPdf(
     doc.on("end", () => resolve(Buffer.concat(chunks)));
     doc.on("error", reject);
 
+    const pageBottom = 780;
+    const tableLeft = 40;
+    const tableWidth = 515;
+    // No. | Unit | Order | Unit Price | Note
+    const colWidths = [44, 60, 128, 78, 205];
+    const colXs: number[] = [];
+    {
+      let x = tableLeft;
+      for (const w of colWidths) {
+        colXs.push(x);
+        x += w;
+      }
+    }
+    const padX = 6;
+    const padY = 7;
+    const headers = ["No.", "Unit", "Order", "Unit Price", "Note"];
+
     const logo = logoPath();
     if (existsSync(logo)) {
       doc.image(logo, 40, 36, { height: 42 });
     } else {
-      doc.fillColor("#111").font("Times-Italic").fontSize(26).text("Darine's", 40, 42);
+      doc.fillColor("#111").font("Times-Italic").fontSize(26).text("Darine's", 40, 42, {
+        lineBreak: false,
+      });
     }
     doc
       .fillColor("#111")
       .font("Helvetica")
       .fontSize(10)
-      .text("Cooking Dairy", 40, 82);
-    doc.fillColor("#111").font("Helvetica-Bold").fontSize(22).text("Catering Order", 320, 48, {
-      width: 235,
-      align: "right",
-    });
+      .text("Cooking Dairy", 40, 82, { lineBreak: false });
+    doc
+      .fillColor("#111")
+      .font("Helvetica-Bold")
+      .fontSize(22)
+      .text("Catering Order", 320, 48, {
+        width: 235,
+        align: "right",
+        lineBreak: false,
+      });
 
     const addressLine = [
       quotation.deliveryLocation?.name,
@@ -105,97 +150,147 @@ export async function renderCateringOrderPdf(
       const col = i < 3 ? 0 : 1;
       const rowIdx = i % 3;
       const x = col === 0 ? leftX : rightX;
-      const y = metaTop + rowIdx * 22;
-      doc.font("Helvetica-Bold").fontSize(10).fillColor("#111").text(row[0], x, y, {
-        continued: true,
-      });
-      doc.font("Helvetica").text(` ${row[1]}`);
+      const my = metaTop + rowIdx * 22;
+      doc.font("Helvetica-Bold").fontSize(10).fillColor("#111");
+      doc.text(row[0], x, my, { continued: true, lineBreak: false });
+      doc.font("Helvetica").text(` ${row[1]}`, { width: 230, lineBreak: false });
       doc
-        .moveTo(x, y + 14)
-        .lineTo(x + 240, y + 14)
+        .moveTo(x, my + 14)
+        .lineTo(x + 240, my + 14)
         .strokeColor("#cccccc")
         .stroke();
     });
 
-    // Table
     let y = 190;
-    const cols = [40, 88, 158, 318, 400];
-    const widths = [48, 70, 160, 82, 155];
-    const headers = ["No.", "Unit", "Order", "Unit Price", "Note"];
 
     const drawHeader = () => {
-      doc.rect(40, y, 515, 22).fillAndStroke("#f2f2f2", "#222");
-      doc.fillColor("#111").font("Helvetica-Bold").fontSize(10);
+      const headerH = 22;
+      doc.rect(tableLeft, y, tableWidth, headerH).fillAndStroke("#f2f2f2", "#222");
+      let x = tableLeft;
+      for (let i = 0; i < colWidths.length - 1; i++) {
+        x += colWidths[i]!;
+        doc
+          .moveTo(x, y)
+          .lineTo(x, y + headerH)
+          .strokeColor("#222")
+          .stroke();
+      }
+      doc.fillColor("#111").font("Helvetica-Bold").fontSize(9);
       headers.forEach((h, i) => {
-        doc.text(h, cols[i] + 4, y + 6, { width: widths[i] - 8 });
+        doc.text(h, colXs[i]! + padX, y + 6, {
+          width: colWidths[i]! - padX * 2,
+          align: i === 0 || i === 3 ? "center" : "left",
+          lineBreak: false,
+        });
       });
-      y += 22;
+      y += headerH;
+    };
+
+    const measureRowHeight = (item: PdfItem, noteText: string) => {
+      doc.font("Helvetica").fontSize(9);
+      const orderH = doc.heightOfString(item.orderNameSnapshot || " ", {
+        width: colWidths[2]! - padX * 2,
+      });
+      doc.fontSize(8);
+      const noteH = noteText
+        ? doc.heightOfString(noteText, { width: colWidths[4]! - padX * 2 })
+        : 0;
+      return Math.max(26, orderH + padY * 2, noteH + padY * 2);
+    };
+
+    const drawCellText = (
+      text: string,
+      colIndex: number,
+      cellY: number,
+      rowH: number,
+      opts: { fontSize?: number; align?: "left" | "center" | "right"; bold?: boolean } = {},
+    ) => {
+      const fontSize = opts.fontSize ?? 9;
+      const align = opts.align ?? "left";
+      // Extra inset on the right for right-aligned prices so they don't kiss the rule
+      const rightInset = align === "right" ? 4 : 0;
+      doc
+        .font(opts.bold ? "Helvetica-Bold" : "Helvetica")
+        .fontSize(fontSize)
+        .fillColor("#111");
+      doc.text(text, colXs[colIndex]! + padX, cellY + padY, {
+        width: colWidths[colIndex]! - padX * 2 - rightInset,
+        height: Math.max(10, rowH - padY * 2),
+        align,
+        ellipsis: true,
+        lineBreak: true,
+      });
+      // Reset cursor so the next absolute-positioned text is not affected
+      doc.x = tableLeft;
+      doc.y = cellY;
     };
 
     drawHeader();
 
     for (const item of quotation.items) {
-      const noteLines: string[] = [];
-      let lastGroup = "";
-      for (const c of item.components) {
-        if (c.groupName && c.groupName !== lastGroup) {
-          noteLines.push(c.groupName);
-          lastGroup = c.groupName;
-        }
-        const qtyPart =
-          c.quantity != null
-            ? ` (${c.quantity}${c.unit ? ` ${String(c.unit).toLowerCase()}` : ""})`
-            : "";
-        noteLines.push(`• ${c.name}${qtyPart}`);
-      }
-      const noteHeight = Math.max(28, noteLines.length * 11 + 10);
-      if (y + noteHeight > 760) {
+      const noteText = buildNoteText(item);
+      const rowH = measureRowHeight(item, noteText);
+
+      if (y + rowH > pageBottom) {
         doc.addPage();
         y = 40;
         drawHeader();
       }
 
-      doc.strokeColor("#222").rect(40, y, 515, noteHeight).stroke();
-      let x = 40;
-      for (let i = 0; i < widths.length - 1; i++) {
-        x += widths[i];
-        doc.moveTo(x, y).lineTo(x, y + noteHeight).stroke();
+      const rowTop = y;
+
+      // Outer border + vertical rules
+      doc.strokeColor("#222").lineWidth(0.8);
+      doc.rect(tableLeft, rowTop, tableWidth, rowH).stroke();
+      let vx = tableLeft;
+      for (let i = 0; i < colWidths.length - 1; i++) {
+        vx += colWidths[i]!;
+        doc.moveTo(vx, rowTop).lineTo(vx, rowTop + rowH).stroke();
       }
 
-      // Paper sample puts the group total in the Unit Price column
-      const price = item.lineTotalCents;
-      doc.font("Helvetica").fontSize(10).fillColor("#111");
-      doc.text(String(item.quantity), cols[0], y + 6, {
-        width: widths[0],
+      drawCellText(formatQty(item.quantity), 0, rowTop, rowH, {
         align: "center",
+        fontSize: 9,
       });
-      doc.text(item.unitSnapshot, cols[1] + 4, y + 6, { width: widths[1] - 8 });
-      doc.text(item.orderNameSnapshot, cols[2] + 4, y + 6, {
-        width: widths[2] - 8,
-      });
-      doc.text(money(price), cols[3] + 4, y + 6, {
-        width: widths[3] - 8,
+      drawCellText(item.unitSnapshot || "", 1, rowTop, rowH, { fontSize: 9 });
+      drawCellText(item.orderNameSnapshot || "", 2, rowTop, rowH, { fontSize: 9 });
+      // Paper sample puts the group total in the Unit Price column
+      drawCellText(money(item.lineTotalCents), 3, rowTop, rowH, {
         align: "right",
+        fontSize: 9,
       });
-      doc.fontSize(9).text(noteLines.join("\n"), cols[4] + 4, y + 5, {
-        width: widths[4] - 8,
-      });
-      y += noteHeight;
+      if (noteText) {
+        drawCellText(noteText, 4, rowTop, rowH, { fontSize: 8 });
+      }
+
+      y = rowTop + rowH;
     }
 
     const delivery =
       quotation.charges.find((c) => c.type === "DELIVERY")?.amountCents ?? 0;
-    y += 16;
+
+    if (y + 90 > pageBottom) {
+      doc.addPage();
+      y = 40;
+    } else {
+      y += 16;
+    }
+
     const totalsX = 360;
-    doc.font("Helvetica").fontSize(11);
-    doc.text(`Subtotal:`, totalsX, y);
+    doc.font("Helvetica").fontSize(11).fillColor("#111");
+    doc.text(`Subtotal:`, totalsX, y, { lineBreak: false });
     doc.text(money(quotation.subtotalCents), totalsX + 90, y, {
       width: 100,
       align: "right",
+      lineBreak: false,
     });
     y += 16;
-    doc.text(`Delivery Charge:`, totalsX, y);
-    doc.text(money(delivery), totalsX + 90, y, { width: 100, align: "right" });
+    doc.text(`Delivery Charge:`, totalsX, y, { lineBreak: false });
+    doc.text(money(delivery), totalsX + 90, y, {
+      width: 100,
+      align: "right",
+      lineBreak: false,
+    });
     y += 18;
     doc
       .moveTo(totalsX, y)
@@ -204,14 +299,15 @@ export async function renderCateringOrderPdf(
       .stroke();
     y += 8;
     doc.font("Helvetica-Bold").fontSize(13);
-    doc.text(`Total:`, totalsX, y);
+    doc.text(`Total:`, totalsX, y, { lineBreak: false });
     doc.text(money(quotation.grandTotalCents), totalsX + 90, y, {
       width: 100,
       align: "right",
+      lineBreak: false,
     });
 
     y += 36;
-    if (y > 780) {
+    if (y > pageBottom) {
       doc.addPage();
       y = 40;
     }
@@ -223,7 +319,7 @@ export async function renderCateringOrderPdf(
         `${company.address} · ${company.phone} · ${company.instagram} · ${quotation.quotationNumber}`,
         40,
         y,
-        { width: 515 },
+        { width: 515, lineBreak: false },
       );
 
     doc.end();
