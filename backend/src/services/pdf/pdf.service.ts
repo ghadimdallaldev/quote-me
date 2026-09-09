@@ -91,8 +91,8 @@ export async function renderCateringOrderPdf(
     const pageBottom = 780;
     const tableLeft = 40;
     const tableWidth = 515;
-    // No. | Unit | Order | Unit Price | Note
-    const colWidths = [44, 60, 128, 78, 205];
+    // No. | Unit | Order | Price | Note
+    const colWidths = [44, 58, 138, 68, 207];
     const colXs: number[] = [];
     {
       let x = tableLeft;
@@ -101,9 +101,9 @@ export async function renderCateringOrderPdf(
         x += w;
       }
     }
-    const padX = 6;
-    const padY = 7;
-    const headers = ["No.", "Unit", "Order", "Unit Price", "Note"];
+    const padX = 8;
+    const padY = 8;
+    const headers = ["No.", "Unit", "Order", "Price", "Note"];
 
     const logo = logoPath();
     if (existsSync(logo)) {
@@ -207,22 +207,36 @@ export async function renderCateringOrderPdf(
     ) => {
       const fontSize = opts.fontSize ?? 9;
       const align = opts.align ?? "left";
-      // Extra inset on the right for right-aligned prices so they don't kiss the rule
-      const rightInset = align === "right" ? 4 : 0;
+      const cellX = colXs[colIndex]!;
+      const cellW = colWidths[colIndex]!;
+      const rightInset = align === "right" ? 8 : padX;
+      const textX = cellX + padX;
+      const textW = Math.max(8, cellW - padX - rightInset);
+
       doc
         .font(opts.bold ? "Helvetica-Bold" : "Helvetica")
         .fontSize(fontSize)
         .fillColor("#111");
-      doc.text(text, colXs[colIndex]! + padX, cellY + padY, {
-        width: colWidths[colIndex]! - padX * 2 - rightInset,
+      // Absolute position every cell; never rely on PDFKit's flowing cursor
+      doc.text(text, textX, cellY + padY, {
+        width: textW,
         height: Math.max(10, rowH - padY * 2),
         align,
         ellipsis: true,
         lineBreak: true,
       });
-      // Reset cursor so the next absolute-positioned text is not affected
-      doc.x = tableLeft;
-      doc.y = cellY;
+    };
+
+    const strokeRowGrid = (rowTop: number, rowH: number) => {
+      doc.save();
+      doc.strokeColor("#222").lineWidth(1);
+      doc.rect(tableLeft, rowTop, tableWidth, rowH).stroke();
+      let vx = tableLeft;
+      for (let i = 0; i < colWidths.length - 1; i++) {
+        vx += colWidths[i]!;
+        doc.moveTo(vx, rowTop).lineTo(vx, rowTop + rowH).stroke();
+      }
+      doc.restore();
     };
 
     drawHeader();
@@ -239,15 +253,6 @@ export async function renderCateringOrderPdf(
 
       const rowTop = y;
 
-      // Outer border + vertical rules
-      doc.strokeColor("#222").lineWidth(0.8);
-      doc.rect(tableLeft, rowTop, tableWidth, rowH).stroke();
-      let vx = tableLeft;
-      for (let i = 0; i < colWidths.length - 1; i++) {
-        vx += colWidths[i]!;
-        doc.moveTo(vx, rowTop).lineTo(vx, rowTop + rowH).stroke();
-      }
-
       drawCellText(formatQty(item.quantity), 0, rowTop, rowH, {
         align: "center",
         fontSize: 9,
@@ -262,6 +267,9 @@ export async function renderCateringOrderPdf(
       if (noteText) {
         drawCellText(noteText, 4, rowTop, rowH, { fontSize: 8 });
       }
+
+      // Borders last so grid lines always sit on top of text
+      strokeRowGrid(rowTop, rowH);
 
       y = rowTop + rowH;
     }
